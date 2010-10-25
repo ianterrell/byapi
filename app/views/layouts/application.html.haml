@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title= @site.title
+    = stylesheet_link_tag :all
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+    = javascript_include_tag "rails", "application"
+    %script{:type => "text/javascript"}= yield(:javascript)
+    = csrf_meta_tag
+  %body
+    #header
+      %h1= @site.title
+      =link_to_unless_current "Recent", root_path
+      |
+      =link_to_unless_current "Best Selling", best_selling_designs_path
+      |
+      =link_to_unless_current "Make your own!", new_design_path
+
+    #content= yield
+    
+    #footer
+      &copy; 2010 Jolly Products, LLC.  All rights reserved.
