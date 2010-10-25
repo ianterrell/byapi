@@ -1,6 +1,6 @@
 require 'bundler/capistrano'
 
-set :application, "wittygraphs"
+set :application, "byapi"
 
 default_run_options[:pty] = true
 set :repository,  "git@github.com:ianterrell/byapi.git"
