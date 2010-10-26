@@ -1,6 +1,9 @@
 - breadcrumbs :root, @site, [@site, :designs], [@site, @design]
 
 %p
+  = image_tag @design.image.url
+
+%p
   %strong= @design.title
 
 = link_to 'Edit', edit_admin_site_design_path(@site, @design)

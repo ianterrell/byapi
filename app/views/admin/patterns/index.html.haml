@@ -2,10 +2,12 @@
 
 %table
   %tr
+    %th
     %th Name
     %th 
   - @patterns.each do |pattern|
     %tr
+      %td= link_to image_tag(pattern.preview.url(:thumb)), [:admin, @site, pattern]
       %td= link_to pattern.name, [:admin, @site, pattern]
       %td
         = link_to 'Edit', edit_admin_site_pattern_path(@site, pattern)
