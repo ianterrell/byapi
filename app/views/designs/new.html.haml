@@ -2,9 +2,11 @@
   ="var patterns = #{@site.patterns.to_json.html_safe};".html_safe
 
 %div#patterns
-  %p Pick a pattern to get started.
+  %p What type of graph would you like to make?
   - @site.patterns.each do |pattern|
     %div.pattern{"data-pattern-id" => pattern.id}
+      = image_tag pattern.preview.url(:medium)
+      %br/
       = pattern.name
 
 = form_for @design do |f|

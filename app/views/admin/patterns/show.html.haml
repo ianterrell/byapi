@@ -1,6 +1,7 @@
 - breadcrumbs :root, @site, [@site, :patterns], [@site, @pattern]
 
 %p
+  = image_tag @pattern.preview.url(:medium)
   %strong= @pattern.name
 
 = link_to 'Edit', edit_admin_site_pattern_path(@site, @pattern)

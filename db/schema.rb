@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026193226) do
+ActiveRecord::Schema.define(:version => 20101026194341) do
 
   create_table "designs", :force => true do |t|
     t.integer  "site_id"
@@ -37,6 +37,10 @@ ActiveRecord::Schema.define(:version => 20101026193226) do
     t.string   "view"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "preview_file_name"
+    t.string   "preview_content_type"
+    t.integer  "preview_file_size"
+    t.datetime "preview_updated_at"
   end
 
   add_index "patterns", ["site_id"], :name => "index_patterns_on_site_id"

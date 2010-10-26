@@ -1,4 +1,13 @@
-= form_for([:admin, @site, @pattern]) do |f|
+= form_for([:admin, @site, @pattern], :html => { :multipart => true }) do |f|
   = errors_for @pattern
+
   = field_for f, :name
+  
+  - if @pattern.preview?
+    = image_tag @pattern.preview.url(:thumb), :style => "float:left;"
+  = f.label :preview, "Upload a new preview"
+  = f.file_field :preview
+
+  .clearfix
+  
   = actions_for f
