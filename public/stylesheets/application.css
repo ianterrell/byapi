@@ -8,8 +8,8 @@ a:visited { color: #666; }
 #header h1 a { text-decoration: none; color: #333!important; }
 #header h1 a:hover { border-bottom: 3px solid #3399FF; }
 
-#menu { color: #333; font-weight: bold;}
-#menu a { font-weight: normal; text-decoration: none; padding: 0px 10px; }
+#menu { color: #333; font-weight: bold; font-size: 16px; }
+#menu a { font-weight: normal; text-decoration: none; padding: 3px 10px; }
 #menu a:hover { background-color: #3399ff; color: white; }
 
 #header { margin-bottom: 20px; }
