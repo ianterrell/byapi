@@ -8,12 +8,15 @@
       = pattern.name
 
 = form_for @design do |f|
+  = link_to "&laquo; Choose another pattern".html_safe, "#", :id => "choose-another-pattern"
+
+  #preview-div
+    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path(:id => @site.patterns.first.id, :format => "svg"), :width => 300, :height => 300, :type => "image/svg+xml"}
+  
   %h2#pattern-name
   = f.hidden_field :pattern_id
   #properties
   = submit_tag "Preview", :id => "preview-design"
   = submit_tag "Create"
   
-  #preview-div
-    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path(:id => @site.patterns.first.id, :format => "svg"), :width => 300, :height => 300, :type => "image/svg+xml"}
-  
+.clearfix

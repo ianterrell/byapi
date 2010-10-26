@@ -57,6 +57,13 @@ jQuery(function ($) {
     return false;
   });
   
+  $('#choose-another-pattern').live('click', function() {
+    $('#properties').empty();
+    $('#patterns').slideDown();
+    $('#new_design').slideUp();
+    return false;
+  });
+  
   // $('.track-events').live('click', function(){
   //   _gaq.push(['_trackEvent', $(this).attr('data-event-category'), $(this).attr('data-event-action'), $(this).attr('data-event-label')]);
   //   return true;

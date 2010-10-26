@@ -9,14 +9,14 @@
     = csrf_meta_tag
   %body
     #header
-      %h1= @site.title
-      =link_to_unless_current "Recent", root_path
-      |
-      =link_to_unless_current "Best Selling", best_selling_designs_path
-      |
-      =link_to_unless_current "Make your own!", new_design_path
+      %h1= link_to @site.title, root_path      
+      #menu
+        =link_to_unless_current "Recent", root_path
+        =link_to_unless_current "Best Selling", best_selling_designs_path
+        =link_to_unless_current "Make your own!", new_design_path
 
     #content= yield
     
     #footer
-      &copy; 2010 Jolly Products, LLC.  All rights reserved.
+      &copy; 2010 Made by
+      = link_to "Ian Terrell", "http://ianterrell.com"

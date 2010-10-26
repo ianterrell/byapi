@@ -1,2 +1,24 @@
 #new_design { display:none; }
 .pattern { cursor: pointer; }
+
+a { color: #000; }
+a:visited { color: #666; }
+
+#header h1 { font-size: 48px; }
+#header h1 a { text-decoration: none; color: #333!important; }
+#header h1 a:hover { border-bottom: 3px solid #3399FF; }
+
+#menu { color: #333; font-weight: bold;}
+#menu a { font-weight: normal; text-decoration: none; padding: 0px 10px; }
+#menu a:hover { background-color: #3399ff; color: white; }
+
+#header { margin-bottom: 20px; }
+#footer { margin-top: 40px; }
+
+#preview-div { float: left; margin-right: 20px; }
+#choose-another-pattern { text-decoration: none;}
+
+input[type=submit], input[type=button] { font-size: 16px; padding: 5px; cursor: pointer; color: #000; background: #eee; border: 1px solid #aaa; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+input[type=submit]:hover, input[type=button]:hover { color: #fff; background-color: #3399ff; border-color: #1A8CFF; }
+.clearfix { clear: both; }
+
