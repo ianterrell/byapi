@@ -1,11 +1,11 @@
 class DesignsController < ApplicationController
   # TODO: use inheritedresource -- set chain properly to @site.designs
   
-  respond_to :html, :xml, :json
+  respond_to :html
   
   def recent
     @designs = @site.designs.approved.recent.paginate :page => params[:page]
-    respond_with @designs
+    render :action => :index
   end
   
   def best_selling
@@ -23,10 +23,6 @@ class DesignsController < ApplicationController
     respond_with @design
   end
 
-  def edit
-    @design = Design.find(params[:id])
-  end
-
   def create
     @design = @site.designs.build(params[:design])
 
@@ -38,30 +34,6 @@ class DesignsController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @design.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-  def update
-    @design = Design.find(params[:id])
-
-    respond_to do |format|
-      if @design.update_attributes(params[:design])
-        format.html { redirect_to(@design, :notice => 'Design was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @design.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @design = Design.find(params[:id])
-    @design.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(designs_url) }
-      format.xml  { head :ok }
     end
   end
 end

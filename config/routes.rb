@@ -1,7 +1,7 @@
 Byapi::Application.routes.draw do
   root :to => "designs#recent"
   
-  resources :designs, :except => [:index] do
+  resources :designs, :only => [:new, :create, :show] do
     collection do
       get :recent
       get :best_selling
