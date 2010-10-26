@@ -14,6 +14,8 @@
     %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path(:id => @site.patterns.first.id, :format => "svg"), :width => 300, :height => 300, :type => "image/svg+xml"}
   
   %h2#pattern-name
+  = f.label :title
+  = f.text_field :title
   = f.hidden_field :pattern_id
   #properties
   = submit_tag "Preview", :id => "preview-design"

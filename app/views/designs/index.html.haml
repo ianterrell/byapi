@@ -1,2 +1,4 @@
 - @designs.each do |design|
-  = link_to image_tag(design.image.url), design
+  %h2= link_to design.title, design
+  = link_to image_tag(design.image.url, :alt => design.title), design
+  = render :partial => "social", :locals => { :design => design }

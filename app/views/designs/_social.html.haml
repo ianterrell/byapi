@@ -1,0 +1,9 @@
+#social
+  %span.st_twitter_large{:displayText => "Tweet", :st_url => design_url(design), :st_title => design.title}
+  %span.st_facebook_large{:displayText => "Facebook", :st_url => design_url(design), :st_title => design.title}
+  %span.st_ybuzz_large{:displayText => "Yahoo! Buzz", :st_url => design_url(design), :st_title => design.title}
+  %span.st_gbuzz_large{:displayText => "Google Buzz", :st_url => design_url(design), :st_title => design.title}
+  %span.st_email_large{:displayText => "Email", :st_url => design_url(design), :st_title => design.title}
+  %span.st_sharethis_large{:displayText => "ShareThis", :st_url => design_url(design), :st_title => design.title}
+  %p Embed on your blog with
+  %pre.embed=CGI::escapeHTML(link_to(image_tag(design.image.url, :alt => design.title), design_url(design)))

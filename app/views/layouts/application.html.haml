@@ -1,11 +1,14 @@
 !!!
 %html
   %head
-    %title= @site.title
+    %title= @design.try(:title) || @site.title
     = stylesheet_link_tag :all
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
     = javascript_include_tag "rails", "application"
     %script{:type => "text/javascript"}= yield(:javascript)
+    %script{:type => "text/javascript", :src => "http://w.sharethis.com/button/buttons.js"}/
+    %script{:type => "text/javascript"}
+      stLight.options({publisher:'b29ef4c5-8fbd-4831-9723-1ec9aa5d17cd'});
     = csrf_meta_tag
   %body
     #header

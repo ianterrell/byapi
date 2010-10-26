@@ -1,8 +1,6 @@
 class DesignsController < ApplicationController
   # TODO: use inheritedresource -- set chain properly to @site.designs
   
-  respond_to :html
-  
   def recent
     @designs = @site.designs.approved.recent.paginate :page => params[:page]
     render :action => :index
@@ -10,17 +8,16 @@ class DesignsController < ApplicationController
   
   def best_selling
     @designs = @site.designs.approved.best_selling.paginate :page => params[:page]
-    respond_with @designs
+    render :action => :index
   end
 
+  caches_page :show
   def show
     @design = Design.find(params[:id])
-    respond_with @design
   end
 
   def new
     @design = Design.new
-    respond_with @design
   end
 
   def create
