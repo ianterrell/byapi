@@ -27,3 +27,5 @@ input[type=submit]:hover, input[type=button]:hover { color: #fff; background-col
 h2 a { text-decoration: none; }
 h2 a { color: #333!important; }
 h2 a:hover { border-bottom: 1px solid #3399ff; }
+
+ul.transcript { list-style: none; margin: 0px; padding: 0px; color: #aaa;}

@@ -5,3 +5,7 @@
 = image_tag(@design.image.url)
 
 = render :partial => "social", :locals => { :design => @design }
+
+%ul.transcript
+  - @design.properties.each_pair do |key, value|
+    %li="#{key.titleize}: #{value}"
