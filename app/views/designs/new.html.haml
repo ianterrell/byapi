@@ -1,7 +1,7 @@
 - content_for :javascript do
   ="var patterns = #{@site.patterns.to_json.html_safe};".html_safe
 
-%div#patterns
+%div#patterns{:style => "#{'display:none;' unless new_design?}"}
   %p What type of graph would you like to make?
   - @site.patterns.each do |pattern|
     %div.pattern{"data-pattern-id" => pattern.id}
@@ -9,32 +9,40 @@
       %br/
       = pattern.name
 
-= form_for @design do |f|
-  = link_to "&laquo; Choose another pattern".html_safe, "#", :id => "choose-another-pattern"
-
+= form_for @design, :html => { :style => "#{'display:none;' if new_design?}" } do |f|
   #preview-div
-    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path(:id => @site.patterns.first.id, :format => "svg"), :width => 300, :height => 300, :type => "image/svg+xml"}
+    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path({:id => @site.patterns.first.id, :format => "svg"}.merge(@design.properties.blank? ? {} : { :properties => @design.properties})), :width => 300, :height => 300, :type => "image/svg+xml"}
   
-  %h2#pattern-name
-  = f.label :title
-  = f.text_field :title
-  = f.hidden_field :pattern_id
-  - if current_user
-    = f.hidden_field :user_id, :value => current_user.id
-  #properties
-  = submit_tag "Preview", :id => "preview-design"
-  = submit_tag "Create"
+  #new-design-fields
+    = link_to "&laquo; Choose another pattern".html_safe, "#", :id => "choose-another-pattern"
+    %h2#pattern-name
+    = f.label :title
+    = f.text_field :title
+    = f.error_message_on :title
+    = f.hidden_field :pattern_id
+    - if current_user
+      = f.hidden_field :user_id, :value => current_user.id
+    #properties
+      - unless new_design?
+        - @design.pattern.properties.each do |property|
+          = label_for_property property
+          = input_for_property property, @design.properties[property[:name]]
+          %br/
+    .buttons
+      = submit_tag "Preview", :id => "preview-design"
+      = submit_tag "Create"
   
-  - if current_user
-    - if current_user.approved?
-      %p.notice
-        = "You are currently logged in as #{current_user.email}."
-        %br/
-        I'll pay you $1 for every item sold with this design on it.
-    - else
-      %p.alert 
-        = "Your account as #{current_user.email} has not yet been approved!"
-        Either you just signed up or you don't actually know me.
-        If you do know me, I'll approve your account and you'll get $1 per item sold with this design on it.
+    - if current_user
+      .clearfix
+      - if current_user.approved?
+        %p.notice
+          = "You are currently logged in as #{current_user.email}."
+          %br/
+          I'll pay you $1 for every item sold with this design on it.
+      - else
+        %p.alert 
+          = "Your account as #{current_user.email} has not yet been approved!"
+          Either you just signed up or you don't actually know me.
+          If you do know me, I'll approve your account and you'll get $1 per item sold with this design on it.
   
 .clearfix
