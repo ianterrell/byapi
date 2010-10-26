@@ -4,7 +4,7 @@ module DesignViews
       width = options[:width] || 100
       height = options[:height] || 100
       
-      offset = 5/300*height
+      offset = (5.to_f/300*height).to_i
 
       svg_image :xml => markup, :height => options[:height], :width => options[:width] do |svg|
         svg.font(:id => "HelveticaRoundedLTStd-Bd", :"horiz-adv-x" => "611"){ |font| font << Fonts::HelveticaRoundedBold }
