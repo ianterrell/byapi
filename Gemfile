@@ -12,6 +12,8 @@ gem 'rails3-generators', :group => :development
 
 gem 'will_paginate', '3.0.pre2'
 
+gem 'paperclip', :git => 'http://github.com/thoughtbot/paperclip.git'
+
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'rspec-rails'

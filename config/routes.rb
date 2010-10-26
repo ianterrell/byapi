@@ -6,16 +6,9 @@ Byapi::Application.routes.draw do
       get :recent
       get :best_selling
     end
-    member do
-      get :preview
-    end
   end
   
-  resources :patterns do
-    member do
-      get :preview
-    end
-  end
+  match "/patterns/:id/preview", :to => "patterns#preview", :as => "preview_pattern"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

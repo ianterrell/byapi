@@ -1,3 +1,11 @@
+GIT
+  remote: http://github.com/thoughtbot/paperclip.git
+  revision: ef7233d
+  specs:
+    paperclip (2.3.4)
+      activerecord
+      activesupport
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -92,6 +100,7 @@ DEPENDENCIES
   friendly_id (~> 3.0)
   haml
   mysql2
+  paperclip!
   rails (= 3.0.1)
   rails3-generators
   rspec-rails

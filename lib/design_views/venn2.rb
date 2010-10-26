@@ -1,14 +1,12 @@
 module DesignViews
   class Venn2 < Base
-    def render(parameters, options={})
-      buffer = ""
-      xml = Builder::XmlMarkup.new(:target => buffer)
+    def xml(markup, parameters, options={})
+      width = options[:width] || 100
+      height = options[:height] || 100
       
-      width = 300
-      height = 300
       offset = 5
 
-      svg_image :height => 300, :width => 300 do |svg|
+      svg_image :xml => markup, :height => options[:height], :width => options[:width] do |svg|
         svg.font(:id => "HelveticaRoundedLTStd-Bd", :"horiz-adv-x" => "611"){ |font| font << Fonts::HelveticaRoundedBold }
         # svg.ellipse :cx => 0, :cy => 0, :rx => 10, :ry => 10, :style => "fill:green;stroke:rgb(0,0,100);stroke-width:2;"
 
@@ -28,9 +26,7 @@ module DesignViews
 
           svg.preview
         end
-      end  
-      
-      return buffer.html_safe
+      end
     end
   end
 end
