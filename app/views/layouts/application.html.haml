@@ -12,7 +12,7 @@
     = csrf_meta_tag
   %body
     #header
-      %h1= link_to @site.title, root_path      
+      %h1= link_to @site.title, root_url
       #menu
         =link_to_unless_current "Recent", root_path
         =link_to_unless_current "Best Selling", best_selling_designs_path
