@@ -57,6 +57,17 @@ module SvgHelper
       @xml.text text, :x => @options[:height]/2, :y => @options[:height]/2, :"alignment-baseline" => "central", :"text-anchor" => "middle", :"font-size" => font_size, :"fill-opacity" => 0.1
       @xml.text text, :x => @options[:height]/2, :y => @options[:height]-font_size, :"alignment-baseline" => "central", :"text-anchor" => "middle", :"font-size" => font_size, :"fill-opacity" => 0.1
     end
+    
+    def lines_of_text(text, options={})
+      x = options.delete :x
+      y = options.delete :y
+      unless text.is_a? ::DesignViews::Helpers::String
+        text = ::DesignViews::Helpers::String.new text, :font_size => (options[:"font-size"] || options["font-size"] || options[:font_size] || "10px").gsub("px","").to_i
+      end
+      text.lines.each_with_index do |line, index|
+        @xml.text line, options.merge(:x => x, :y => text.vertical_center_for_line(index, :offset => y))
+      end
+    end
 
     # def font(name, options = {})
     #   @xml.font(:id => "HelveticaRoundedLTStd-Bd", :"horiz-adv-x" => "611"){ |font| font << render(:partial => "/fonts/helvetica_rounded_bold") }
