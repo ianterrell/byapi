@@ -10,6 +10,8 @@ gem 'friendly_id', '~> 3.0'
 gem 'haml'
 gem 'rails3-generators', :group => :development
 
+gem 'inherited_resources', '1.1.2'
+
 gem 'will_paginate', '3.0.pre2'
 
 gem 'paperclip', :git => 'http://github.com/thoughtbot/paperclip.git'

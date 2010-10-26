@@ -1,0 +1,7 @@
+- breadcrumbs :root, @site, [@site, :patterns], [@site, @pattern]
+
+%p
+  %strong= @pattern.name
+
+= link_to 'Edit', edit_admin_site_pattern_path(@site, @pattern)
+= link_to 'Back', admin_site_patterns_path(@site)

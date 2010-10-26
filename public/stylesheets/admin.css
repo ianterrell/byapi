@@ -1,0 +1,5 @@
+table { margin-bottom: 20px; }
+
+#breadcrumbs { color: #333!important; font-size: 16px; }
+#breadcrumbs a { padding: 0px; color: #333!important;}
+#breadcrumbs a:hover { color: #3399ff!important; }

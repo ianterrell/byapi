@@ -1,0 +1,14 @@
+- breadcrumbs :root, @site, :patterns
+
+%table
+  %tr
+    %th Name
+    %th 
+  - @patterns.each do |pattern|
+    %tr
+      %td= link_to pattern.name, [:admin, @site, pattern]
+      %td
+        = link_to 'Edit', edit_admin_site_pattern_path(@site, pattern)
+        = link_to 'Destroy', [:admin, @site, pattern], :confirm => 'Are you sure?', :method => :delete
+
+= link_to 'New Pattern', new_admin_site_pattern_path(@site)

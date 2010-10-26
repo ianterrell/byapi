@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title= "Admin"
+    = stylesheet_link_tag "scaffold", "application", "admin"
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+    = javascript_include_tag "rails", "application"
+    %script{:type => "text/javascript"}= yield(:javascript)
+    = csrf_meta_tag
+  %body
+    #header
+      %h1= link_to "Admin", admin_root_url
+      
+    #breadcrumbs
+      = yield :breadcrumbs
+
+    #content
+      %p#notice= notice
+      %p#alert= alert
+      = yield
+    
+    #footer
+      &copy; 2010 Made by
+      = link_to "Ian Terrell", "http://ianterrell.com"

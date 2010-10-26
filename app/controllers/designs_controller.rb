@@ -11,7 +11,7 @@ class DesignsController < ApplicationController
     render :action => :index
   end
 
-  caches_page :show
+  # TODO:  if we can make sure we've finished our API work first, we can cache :show
   def show
     @design = Design.find(params[:id])
   end

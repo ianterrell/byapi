@@ -1,0 +1,12 @@
+- breadcrumbs :root, @site, :designs
+
+%table
+  %tr
+    %th Title
+    %th 
+  - @designs.each do |design|
+    %tr
+      %td= link_to design.title, [:admin, @site, design]
+      %td
+        = link_to 'Edit', edit_admin_site_design_path(@site, design)
+        = link_to 'Destroy', [:admin, @site, design], :confirm => 'Are you sure?', :method => :delete

@@ -1,8 +1,8 @@
 !!!
 %html
   %head
-    %title= @design.try(:title) || @site.title
-    = stylesheet_link_tag :all
+    %title= @title || @design.try(:title) || @site.title
+    = stylesheet_link_tag "scaffold", "application"
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
     = javascript_include_tag "rails", "application"
     %script{:type => "text/javascript"}= yield(:javascript)
@@ -18,7 +18,6 @@
         =link_to_unless_current "Best Selling", best_selling_designs_path
         =link_to_unless_current "Make your own!", new_design_path
       
-
     #content= yield
     
     #footer

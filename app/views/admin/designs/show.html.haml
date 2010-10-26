@@ -1,0 +1,7 @@
+- breadcrumbs :root, @site, [@site, :designs], [@site, @design]
+
+%p
+  %strong= @design.title
+
+= link_to 'Edit', edit_admin_site_design_path(@site, @design)
+= link_to 'Back', admin_site_designs_path(@site)

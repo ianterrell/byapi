@@ -1,0 +1,6 @@
+- breadcrumbs :root, @site, [@site, :designs], [@site, @design], :edit
+= form_for([:admin, @site, @design]) do |f|
+  = errors_for @design
+  = field_for f, :title
+  = actions_for f
+= link_to 'Back', [:admin, @site, @design]

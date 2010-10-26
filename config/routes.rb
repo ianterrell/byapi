@@ -10,6 +10,14 @@ Byapi::Application.routes.draw do
   
   match "/patterns/:id/preview", :to => "patterns#preview", :as => "preview_pattern"
 
+  namespace :admin do
+    root :to => "sites#index"
+    resources :sites do
+      resources :patterns
+      resources :designs, :except => [:new, :create]
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
