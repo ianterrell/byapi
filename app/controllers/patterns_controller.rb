@@ -4,6 +4,7 @@ class PatternsController < ApplicationController
   respond_to :svg
   
   def preview
+    @pattern = Pattern.find params[:id]
     @properties = params[:properties]
   end
 end
