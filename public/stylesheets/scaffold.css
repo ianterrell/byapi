@@ -16,9 +16,8 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
-#notice {
-  color: green;
-}
+#notice, .notice { color: green; }
+#alert, .alert { color: maroon; }
 
 .field_with_errors {
   padding: 2px;

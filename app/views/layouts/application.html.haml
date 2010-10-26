@@ -18,8 +18,16 @@
         =link_to_unless_current "Best Selling", best_selling_designs_path
         =link_to_unless_current "Make your own!", new_design_path
       
-    #content= yield
+    #content
+      %p#notice= notice
+      %p#alert= alert
+      = yield
     
     #footer
       &copy; 2010 Made by
       = link_to "Ian Terrell", "http://ianterrell.com"
+      |
+      - unless current_user
+        = link_to "Sign In", new_user_session_path
+      - else
+        = link_to "Sign Out", destroy_user_session_path

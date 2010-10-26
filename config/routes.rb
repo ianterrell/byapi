@@ -1,4 +1,6 @@
 Byapi::Application.routes.draw do
+  devise_for :users
+
   root :to => "designs#recent"
   
   resources :designs, :only => [:new, :create, :show] do

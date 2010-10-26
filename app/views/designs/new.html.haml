@@ -21,4 +21,16 @@
   = submit_tag "Preview", :id => "preview-design"
   = submit_tag "Create"
   
+  - if current_user && !current_user.admin?
+    - if current_user.approved?
+      %p.notice
+        = "You are currently logged in as #{current_user.email}."
+        %br/
+        I'll pay you $1 for every item sold with this design on it.
+    - else
+      %p.alert 
+        = "Your account as #{current_user.email} has not yet been approved!"
+        Either you just signed up or you don't actually know me.
+        If you do know me, I'll approve your account and you'll get $1 per item sold with this design on it.
+  
 .clearfix

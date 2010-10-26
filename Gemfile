@@ -10,7 +10,10 @@ gem 'friendly_id', '~> 3.0'
 gem 'haml'
 gem 'rails3-generators', :group => :development
 
+gem 'devise', '1.1.rc2'
 gem 'inherited_resources', '1.1.2'
+
+gem 'permit_yo', '>= 2.1.2'
 
 gem 'will_paginate', '3.0.pre2'
 
