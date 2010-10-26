@@ -17,11 +17,13 @@
   = f.label :title
   = f.text_field :title
   = f.hidden_field :pattern_id
+  - if current_user
+    = f.hidden_field :user_id, :value => current_user.id
   #properties
   = submit_tag "Preview", :id => "preview-design"
   = submit_tag "Create"
   
-  - if current_user && !current_user.admin?
+  - if current_user
     - if current_user.approved?
       %p.notice
         = "You are currently logged in as #{current_user.email}."

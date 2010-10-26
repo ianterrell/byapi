@@ -1,6 +1,4 @@
 class DesignsController < ApplicationController
-  # TODO: use inheritedresource -- set chain properly to @site.designs
-  
   def recent
     @designs = @site.designs.approved.recent.paginate :page => params[:page]
     render :action => :index
@@ -25,7 +23,7 @@ class DesignsController < ApplicationController
 
     if @design.valid?
       image = StringIO.new @design.render :height => 600, :width => 600
-      def image.original_filename;"3iehdk8hdju-design.svg"; end
+      def image.original_filename;"design.svg"; end
       def image.content_type;"image/svg+xml"; end
       @design.image = image
     end
