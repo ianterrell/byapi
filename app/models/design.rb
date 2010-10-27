@@ -12,6 +12,8 @@ class Design < ActiveRecord::Base
   has_attached_file :image, PaperclipStorageHash.merge(:styles => { :large => ["450x450", :png], :small => ["150x150", :png] })
   
   attr_protected :sales_count, :approved_at
+
+  acts_as_taggable
   
   scope :unapproved, where("approved_at is null")
   scope :approved, where("approved_at is not null")

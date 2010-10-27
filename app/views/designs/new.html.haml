@@ -24,9 +24,13 @@
     = f.label :category_id
     = f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }
     = f.error_message_on :category_id
+    = f.label :tag_list, "Descriptive Tags"
+    = f.text_field :tag_list
+    = f.error_message_on :tag_list
     = f.hidden_field :pattern_id
     - if current_user
       = f.hidden_field :user_id, :value => current_user.id
+    
     #properties
       - unless new_design?
         - @design.pattern.properties.each do |property|
@@ -53,6 +57,7 @@
                 %td= input_for_offset offset, "x", @design.offsets[offset[:name]]["x"]
                 %td= input_for_offset offset, "y", @design.offsets[offset[:name]]["y"]
     
+    %br/
     = link_to "Tips", "#", :id => "tips-toggle"
     #tips{:style => "display:none;"}
       %ul
