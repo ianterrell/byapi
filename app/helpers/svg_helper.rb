@@ -43,12 +43,17 @@ module SvgHelper
       half1 = (vector + perp1).normalize
       half2 = (vector + perp2).normalize
 
-      arrow1 = to + half1 * (line.r/5);
-      arrow2 = to + half2 * (line.r/5);
+      arrow1 = to + half1 * head_length;
+      arrow2 = to + half2 * head_length;
 
       @xml.path options.merge(:d => "M#{from[0]} #{from[1]} S#{curve_point[0]} #{curve_point[1]} #{to[0]} #{to[1]}")
-      @xml.path options.merge(:d => "M#{to[0]} #{to[1]} S#{arrow1[0]} #{arrow1[1]} #{arrow1[0]} #{arrow1[1]}")
-      @xml.path options.merge(:d => "M#{to[0]} #{to[1]} S#{arrow2[0]} #{arrow2[1]} #{arrow2[0]} #{arrow2[1]}")
+      
+      # One line, pointy end
+      @xml.path options.merge(:d => "M#{arrow1[0]} #{arrow1[1]} S#{to[0]} #{to[1]} #{to[0]} #{to[1]} S#{arrow2[0]} #{arrow2[1]} #{arrow2[0]} #{arrow2[1]}")
+      
+      # Two lines, disjointed end
+      # @xml.path options.merge(:d => "M#{to[0]} #{to[1]} S#{arrow1[0]} #{arrow1[1]} #{arrow1[0]} #{arrow1[1]}")
+      # @xml.path options.merge(:d => "M#{to[0]} #{to[1]} S#{arrow2[0]} #{arrow2[1]} #{arrow2[0]} #{arrow2[1]}")
     end
 
     def preview(text="PREVIEW")
