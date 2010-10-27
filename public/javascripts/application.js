@@ -92,6 +92,7 @@ jQuery(function ($) {
   
   $('#choose-another-pattern').live('click', function() {
     $('#properties').empty();
+    $('#offsets').empty();    
     $('#patterns').slideDown();
     $('#new_design').slideUp();
     return false;
