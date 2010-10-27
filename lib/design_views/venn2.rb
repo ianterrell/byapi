@@ -30,7 +30,7 @@ module DesignViews
         svg.circle :cx => second_center[:x], :cy => second_center[:y], :r => radius, :fill => set_b_color, :"fill-opacity" => "0.5"
         
         svg.lines_of_text parameters[:set_a_title], font_options.merge(:x => first_center[:x] + offsets.x("set_a"), :y => first_center[:y]+font_size/2+offsets.y("set_a"))
-        svg.lines_of_text parameters[:set_b_title], font_options.merge(:x => second_center[:x] + offsets.x("set_b"), :y => second_center[:y]+font_size/2+offsets.x("set_b"))
+        svg.lines_of_text parameters[:set_b_title], font_options.merge(:x => second_center[:x] + offsets.x("set_b"), :y => second_center[:y]+font_size/2+offsets.y("set_b"))
         
         # Intersection
         intersection_title = ::DesignViews::Helpers::String.new parameters[:intersection_title], :font_size => font_size
