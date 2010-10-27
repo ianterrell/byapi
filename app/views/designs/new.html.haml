@@ -21,12 +21,6 @@
     = f.label :title
     = f.text_field :title
     = f.error_message_on :title
-    = f.label :category_id
-    = f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }
-    = f.error_message_on :category_id
-    = f.label :tag_list, "Descriptive Tags"
-    = f.text_field :tag_list
-    = f.error_message_on :tag_list
     = f.hidden_field :pattern_id
     - if current_user
       = f.hidden_field :user_id, :value => current_user.id
@@ -39,7 +33,7 @@
           %br/
     .buttons
       = submit_tag "Preview", :id => "preview-design"
-      = submit_tag "Create"      
+      = submit_tag "Create"
     = link_to "Advanced Options", "#", :id => "advanced-options-toggle"
     #advanced-options{:style => "#{'display:none;' if new_design? || offsets_blank?}"}
       %p I took a good guess where you want stuff, but maybe you're picky.  Add offset values to fine tune the placement of each element.
@@ -57,6 +51,13 @@
                 %td= input_for_offset offset, "x", @design.offsets[offset[:name]]["x"]
                 %td= input_for_offset offset, "y", @design.offsets[offset[:name]]["y"]
     
+    %h4 Categorize It
+    = f.label :category_id
+    = f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }
+    = f.error_message_on :category_id
+    = f.label :tag_list, "Tags"
+    = f.text_field :tag_list
+    = f.error_message_on :tag_list
     %br/
     = link_to "Tips", "#", :id => "tips-toggle"
     #tips{:style => "display:none;"}
