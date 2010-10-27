@@ -13,8 +13,6 @@ class Design < ActiveRecord::Base
   
   attr_protected :sales_count, :approved_at
   
-  after_create :auto_approve_if_from_approved_user
-  
   scope :unapproved, where("approved_at is null")
   scope :approved, where("approved_at is not null")
   scope :recent, order("approved_at desc")
@@ -45,10 +43,5 @@ class Design < ActiveRecord::Base
       end
     end
     copy
-  end
-
-protected
-  def auto_approve_if_from_approved_user    
-    self.approve! if self.user && self.user.approved?
   end
 end
