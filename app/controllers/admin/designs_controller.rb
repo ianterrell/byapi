@@ -5,11 +5,14 @@ class Admin::DesignsController < Admin::BaseController
   def unapproved
     @site = Site.find params[:site_id]
     if request.post?
-      (params[:designs] || {}).each_pair do |id, approval|
+      (params[:designs] || {}).each_pair do |id, values|
         design = Design.find id
-        if approval == "1"
+        if values[:approval] == "1"
+          design.tag_list = values[:tag_list]
+          design.category_id = values[:category_id]
+          design.save
           design.approve!
-        else
+        elsif values[:approval] == "0"
           design.destroy
         end
       end  

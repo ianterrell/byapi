@@ -9,8 +9,9 @@
         %tr
           %td= link_to image_tag(design.image.url(:small)), design.image.url(:large), :class => "lightbox", :title => design.title
           %td= link_to design.title, [:admin, @site, design]
-          %td= design.category.name
+          %td= select_tag "designs[#{design.id}][category_id]", options_from_collection_for_select(Category.all, :id, :name, design.category_id)
+          %td= text_field_tag "designs[#{design.id}][tag_list]", design.tags.join(", ")
           %td
-            = label_tag "", radio_button_tag("designs[#{design.id}]", "1") + "Approve"
-            = label_tag "", radio_button_tag("designs[#{design.id}]", "0") + "Reject"
+            = label_tag "", radio_button_tag("designs[#{design.id}][approval]", "1") + "Approve"
+            = label_tag "", radio_button_tag("designs[#{design.id}][approval]", "0") + "Reject"
     = submit_tag
