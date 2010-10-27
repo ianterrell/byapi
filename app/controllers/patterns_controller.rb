@@ -3,6 +3,6 @@ class PatternsController < ApplicationController
   respond_to :svg
   def preview
     @pattern = Pattern.find params[:id]
-    render :text => @pattern.view.camelize.constantize.new.render(params[:properties], :height => 300, :width => 300, :preview => true)
+    render :text => @pattern.view.camelize.constantize.new.render(params[:properties], :height => 300, :width => 300, :offsets => params[:offsets], :preview => true)
   end
 end

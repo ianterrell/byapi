@@ -6,6 +6,7 @@ class Design < ActiveRecord::Base
   validates_presence_of :site_id, :pattern_id, :properties, :title
   
   serialize :properties
+  serialize :offsets
   
   has_attached_file :image, PaperclipStorageHash.merge(:styles => { :large => ["450x450", :png] })
   
@@ -18,7 +19,17 @@ class Design < ActiveRecord::Base
   scope :best_selling, order("sales_count desc")
   
   def render(options={})
-    self.pattern.view.camelize.constantize.new.render(properties, options)
+    self.pattern.view.camelize.constantize.new.render(properties, options.merge(:offsets => offsets))
+  end
+  
+  def nonblank_offsets
+    copy = Marshal.load(Marshal.dump(offsets)) || {}
+    copy.each_pair do |key, coordinates|
+      coordinates.each_pair do |axis, value|
+        coordinates.delete(axis) if value.to_i == 0
+      end
+    end
+    copy
   end
 
 protected

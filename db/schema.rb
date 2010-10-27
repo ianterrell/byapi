@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026194341) do
+ActiveRecord::Schema.define(:version => 20101026231652) do
 
   create_table "designs", :force => true do |t|
     t.integer  "site_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20101026194341) do
     t.datetime "image_updated_at"
     t.string   "title"
     t.integer  "user_id"
+    t.string   "offsets"
   end
 
   add_index "designs", ["site_id"], :name => "index_designs_on_site_id"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20101026194341) do
     t.string   "preview_content_type"
     t.integer  "preview_file_size"
     t.datetime "preview_updated_at"
+    t.string   "offsets"
   end
 
   add_index "patterns", ["site_id"], :name => "index_patterns_on_site_id"

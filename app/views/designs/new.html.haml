@@ -1,5 +1,7 @@
 - content_for :javascript do
   ="var patterns = #{@site.patterns.to_json.html_safe};".html_safe
+  - unless new_design?
+    ="var selectedPattern = #{@design.pattern.to_json.html_safe}.pattern;".html_safe
 
 %div#patterns{:style => "#{'display:none;' unless new_design?}"}
   %p What type of graph would you like to make?
@@ -11,7 +13,7 @@
 
 = form_for @design, :html => { :style => "#{'display:none;' if new_design?}" } do |f|
   #preview-div
-    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path({:id => @site.patterns.first.id, :format => "svg"}.merge(@design.properties.blank? ? {} : { :properties => @design.properties})), :width => 300, :height => 300, :type => "image/svg+xml"}
+    %embed{:id => "embedded-preview", "data-preview-path" => preview_pattern_path(:id => "REPLACE", :format => "svg"), :src => preview_pattern_path({:id => @site.patterns.first.id, :format => "svg"}.merge(@design.properties.blank? ? {} : { :properties => @design.properties}).merge(@design.nonblank_offsets.blank? ? {} : { :offsets => @design.nonblank_offsets})), :width => 300, :height => 300, :type => "image/svg+xml"}
   
   #new-design-fields
     = link_to "&laquo; Choose another pattern".html_safe, "#", :id => "choose-another-pattern"
@@ -30,8 +32,23 @@
           %br/
     .buttons
       = submit_tag "Preview", :id => "preview-design"
-      = submit_tag "Create"
-  
+      = submit_tag "Create"      
+    = link_to "Advanced Options", "#", :id => "advanced-options-toggle"
+    #advanced-options{:style => "#{'display:none;' if new_design? || offsets_blank?}"}
+      %p I took a good guess where you want stuff, but maybe you're picky.  Add offset values to fine tune the placement of each element.
+      %table
+        %thead
+          %tr
+            %th
+            %th X
+            %th Y
+        %tbody#offsets
+          - if !new_design?
+            - @design.pattern.offsets.each do |offset|
+              %tr
+                %th= offset[:title]
+                %td= input_for_offset offset, "x", @design.offsets[offset[:name]]["x"]
+                %td= input_for_offset offset, "y", @design.offsets[offset[:name]]["y"]
     - if current_user
       .clearfix
       - if current_user.approved?

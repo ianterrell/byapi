@@ -19,7 +19,12 @@ function previewDesign() {
   $('#properties input').each(function(index, input){
     properties.push({name:$(input).attr('data-name'), value:$(input).val()});
   });
-  path += "?" + properties.map(function(object){return "properties["+ object.name + "]=" + escape(object.value)}).join('&');
+  var offsets = [];
+  $('#offsets input').each(function(index, input){
+    if ($(input).val() != "0")
+      offsets.push({name:$(input).attr('data-name'), value:$(input).val()});
+  });
+  path += "?" + properties.map(function(object){return "properties["+ object.name + "]=" + escape(object.value)}).join('&') + "&" + offsets.map(function(object){return object.name + "=" + escape(object.value)}).join('&');
   $("#preview-div").html('<embed id="embedded-preview" data-preview-path="' + previewPath + '" src ="' + path + '" width="300" height="300" type="image/svg+xml"></embed>');
 }
 
@@ -47,6 +52,24 @@ jQuery(function ($) {
       $('#properties').append('<br/>');
     });
     
+    $(selectedPattern.offsets).each(function(index, offset){
+      var tr = $('<tr>');
+      tr.append($('<th>').html(offset.title));
+      $(["x","y"]).each(function(index, axis){
+        var td = $('<td>');
+        var input = $('<input>');
+        input.attr('class', 'offset');
+        input.attr('type', 'text');
+        input.attr('id', "design_offsets_" + offset.name + "_" + axis);  
+        input.attr('name', "design[offsets][" + offset.name + "][" + axis +"]");
+        input.attr('data-name', "offsets[" + offset.name + "][" + axis + "]")
+        input.val(0);
+        td.append(input);
+        tr.append(td);
+      });
+      $('#offsets').append(tr);
+    });
+    
     previewDesign();
     $('#new_design').slideDown();
     // alert(patternWithId($(this).attr('data-pattern-id')).name);
@@ -54,6 +77,11 @@ jQuery(function ($) {
   
   $('#preview-design').live('click', function(){
     previewDesign();
+    return false;
+  });
+  
+  $('#advanced-options-toggle').live('click', function(){
+    $('#advanced-options').slideToggle();
     return false;
   });
   

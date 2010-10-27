@@ -27,8 +27,6 @@ module DesignViews
       end
       
       def total_height(options={})
-        
-        puts line_count * @font_size + (line_count-1) * @line_spacing
         line_count * @font_size + (line_count-1) * @line_spacing
       end
       
