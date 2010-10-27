@@ -4,7 +4,6 @@ module DesignViews
       width = options[:width] || 100
       height = options[:height] || 100
       offsets = ::DesignViews::Helpers::Offsets.new(options[:offsets], width)
-      puts offsets.x "set_a"
       circle_offset = (5.to_f/300*height).to_i
       first_center =  { :x => width/3 + circle_offset,   :y => width/3 - 2*circle_offset   }
       second_center = { :x => width/3*2 - circle_offset, :y => width/3*2 - 4*circle_offset}

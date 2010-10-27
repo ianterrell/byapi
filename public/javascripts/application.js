@@ -16,7 +16,7 @@ function previewDesign() {
   var previewPath = $("#embedded-preview").attr('data-preview-path');
   var path = previewPath.replace('REPLACE', selectedPattern.id);
   var properties = [];
-  $('#properties input').each(function(index, input){
+  $('#properties input, #properties select').each(function(index, input){
     properties.push({name:$(input).attr('data-name'), value:$(input).val()});
   });
   var offsets = [];
@@ -40,13 +40,25 @@ jQuery(function ($) {
       var label = $('<label>');
       label.attr('for', "design_properties_" + property.name);
       label.html(property.title);
-      var input = $('<input>');
-      if (property.type == "string")
+      var input;
+      if (property.type == "select") {
+        input = $('<select>');
+        $(property.options).each(function(index, option){
+          var option_tag = $('<option>');
+          option_tag.attr('value', option);
+          option_tag.html(option);
+          if (option == property.default)
+            option_tag.attr('selected','selected');
+          input.append(option_tag);
+        });
+      } else { // Currently string and integer types, both handled the same
+        input = $('<input>');
         input.attr('type', 'text');
+        input.val(property.default)
+      } 
       input.attr('id', "design_properties_" + property.name);  
       input.attr('name', "design[properties][" + property.name + "]");
       input.attr('data-name', property.name)
-      input.val(property.default)
       $('#properties').append(label);
       $('#properties').append(input);
       $('#properties').append('<br/>');

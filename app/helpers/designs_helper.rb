@@ -21,10 +21,16 @@ module DesignsHelper
   end
   
   def input_for_property(property, value)
-    type = if property.type == "string"
-      'text'
+    type = if property[:type] == :select
+      html = %|<select id="design_properties_#{property[:name]}" name="design[properties][#{property[:name]}]">|
+      property[:options].each do |option|
+        html << %|<option value="#{option}"#{' selected="selected"' if option.to_s == value}>#{option.titleize}</option>|
+      end
+      html << "</select>"
+      html.html_safe
+    else
+      %|<input type="#{type}" id="design_properties_#{property[:name]}" name="design[properties][#{property[:name]}]" data-name="#{property[:name]}" value="#{value}">|.html_safe
     end
-    %|<input type="#{type}" id="design_properties_#{property[:name]}" name="design[properties][#{property[:name]}]" data-name="#{property[:name]}" value="#{value}">|.html_safe
   end
   
   def input_for_offset(offset, axis, value)
