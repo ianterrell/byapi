@@ -85,6 +85,11 @@ jQuery(function ($) {
     return false;
   });
   
+  $('#tips-toggle').live('click', function(){
+    $('#tips').slideToggle();
+    return false;
+  });
+  
   $('#choose-another-pattern').live('click', function() {
     $('#properties').empty();
     $('#patterns').slideDown();

@@ -49,6 +49,12 @@
                 %th= offset[:title]
                 %td= input_for_offset offset, "x", @design.offsets[offset[:name]]["x"]
                 %td= input_for_offset offset, "y", @design.offsets[offset[:name]]["y"]
+    
+    = link_to "Tips", "#", :id => "tips-toggle"
+    #tips{:style => "display:none;"}
+      %ul
+        %li Use the pipe character (|) to create line breaks.
+        %li Use the offsets in advanced options to perfectly place the items.
     - if current_user
       .clearfix
       - if current_user.approved?
