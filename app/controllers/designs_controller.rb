@@ -15,7 +15,7 @@ class DesignsController < ApplicationController
   end
 
   def new
-    @design = Design.new
+    @design = Design.new :category => @site.default_category
   end
 
   def create

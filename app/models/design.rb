@@ -2,8 +2,9 @@ class Design < ActiveRecord::Base
   belongs_to :site
   belongs_to :pattern
   belongs_to :user
+  belongs_to :category
   
-  validates_presence_of :site_id, :pattern_id, :properties, :title
+  validates_presence_of :site_id, :pattern_id, :category_id, :properties, :title
   
   serialize :properties
   serialize :offsets

@@ -1,4 +1,7 @@
 = form_for([:admin, @site]) do |f|
   = errors_for @site
   = field_for f, :domain
+  .field
+    = f.label :default_category_id
+    = f.select :default_category_id, Category.all.collect {|p| [ p.name, p.id ] }
   = actions_for f

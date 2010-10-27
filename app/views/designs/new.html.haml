@@ -21,6 +21,9 @@
     = f.label :title
     = f.text_field :title
     = f.error_message_on :title
+    = f.label :category_id
+    = f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }
+    = f.error_message_on :category_id
     = f.hidden_field :pattern_id
     - if current_user
       = f.hidden_field :user_id, :value => current_user.id

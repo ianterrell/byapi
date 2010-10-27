@@ -2,5 +2,8 @@
 = form_for([:admin, @site, @design]) do |f|
   = errors_for @design
   = field_for f, :title
+  .field
+    = f.label :category_id
+    = f.select :category_id, Category.all.collect {|p| [ p.name, p.id ] }  
   = actions_for f
 = link_to 'Back', [:admin, @site, @design]

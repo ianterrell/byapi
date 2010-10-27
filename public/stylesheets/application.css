@@ -17,7 +17,7 @@ a:visited { color: #666; }
 #preview-div { float: left; margin-right: 20px; }
 #choose-another-pattern { text-decoration: none;}
 
-input, textarea { padding: 3px; outline: none!important; border: 1px solid #ddd; margin-bottom: 10px; margin-left: 10px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+input, textarea, select { padding: 3px; outline: none!important; border: 1px solid #ddd; margin-bottom: 10px; margin-left: 10px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
 input:focus, textarea:focus { border-color: #666; }
 input { font-size: 18px; }
 textarea { font-size: 14px; }
