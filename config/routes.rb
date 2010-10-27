@@ -16,7 +16,12 @@ Byapi::Application.routes.draw do
     root :to => "sites#index"
     resources :sites do
       resources :patterns
-      resources :designs, :except => [:new, :create]
+      resources :designs, :except => [:new, :create] do
+        collection do
+          get :unapproved
+          post :unapproved
+        end
+      end
     end
   end
 

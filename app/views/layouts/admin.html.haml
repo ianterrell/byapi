@@ -2,9 +2,9 @@
 %html
   %head
     %title= "Admin"
-    = stylesheet_link_tag "scaffold", "application", "admin"
+    = stylesheet_link_tag "scaffold", "application", "admin", "jquery.lightbox-0.5"
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-    = javascript_include_tag "rails", "application"
+    = javascript_include_tag "rails", "application", "jquery.lightbox-0.5.min", "admin"
     %script{:type => "text/javascript"}= yield(:javascript)
     = csrf_meta_tag
   %body

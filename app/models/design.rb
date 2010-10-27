@@ -8,15 +8,29 @@ class Design < ActiveRecord::Base
   serialize :properties
   serialize :offsets
   
-  has_attached_file :image, PaperclipStorageHash.merge(:styles => { :large => ["450x450", :png] })
+  has_attached_file :image, PaperclipStorageHash.merge(:styles => { :large => ["450x450", :png], :small => ["150x150", :png] })
   
   attr_protected :sales_count, :approved_at
   
-  before_create :auto_approve_if_from_approved_user
+  after_create :auto_approve_if_from_approved_user
   
+  scope :unapproved, where("approved_at is null")
   scope :approved, where("approved_at is not null")
   scope :recent, order("approved_at desc")
   scope :best_selling, order("sales_count desc")
+  
+  def approved?
+    !!approved_at
+  end
+  
+  def unapproved?
+    !approved?
+  end
+  
+  def approve!
+    self.update_attribute :approved_at, Time.now
+    # TODO:  add a delayed job to create items in store
+  end
   
   def render(options={})
     self.pattern.view.camelize.constantize.new.render(properties, options.merge(:offsets => offsets))
@@ -33,9 +47,7 @@ class Design < ActiveRecord::Base
   end
 
 protected
-  def auto_approve_if_from_approved_user
-    if self.user && self.user.approved?
-      self.approved_at = Time.now
-    end
+  def auto_approve_if_from_approved_user    
+    self.approve! if self.user && self.user.approved?
   end
 end

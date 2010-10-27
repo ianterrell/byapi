@@ -5,12 +5,14 @@
     %th Domain
     %th Patterns
     %th Designs
+    %th Unapproved Designs
     %th 
   - @sites.each do |site|
     %tr
       %td= link_to site.domain, [:admin, site]
       %td= link_to site.patterns.count, [:admin, site, :patterns]
       %td= link_to site.designs.count, [:admin, site, :designs]
+      %td= link_to site.designs.unapproved.count, unapproved_admin_site_designs_path(site)
       %td
         = link_to 'Edit', edit_admin_site_path(site)
         / = link_to 'Destroy', [:admin, site], :confirm => 'Are you sure?', :method => :delete

@@ -1,0 +1,15 @@
+- breadcrumbs :root, @site, [@site, :designs], :unapproved
+
+- if @designs.empty?
+  %p There are no unapproved designs!
+- else
+  = form_tag do
+    %table
+      - @designs.each do |design|
+        %tr
+          %td= link_to image_tag(design.image.url(:small)), design.image.url(:large), :class => "lightbox", :title => design.title
+          %td= link_to design.title, [:admin, @site, design]
+          %td
+            = label_tag "", radio_button_tag("designs[#{design.id}]", "1") + "Approve"
+            = label_tag "", radio_button_tag("designs[#{design.id}]", "0") + "Reject"
+    = submit_tag

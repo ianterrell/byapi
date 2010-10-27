@@ -3,11 +3,13 @@
 %table
   %tr
     %th Title
+    %th Approved
     %th Author
     %th 
   - @designs.each do |design|
     %tr
       %td= link_to design.title, [:admin, @site, design]
+      %td= design.approved? ? "Yes" : "No"
       %td= design.try(:user).try(:email)
       %td
         = link_to 'Edit', edit_admin_site_design_path(@site, design)
