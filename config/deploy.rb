@@ -30,7 +30,7 @@ after "deploy:update_code", "deploy:bundle_install"
 # =============================================================================
 namespace(:deploy) do  
   task :symlink_configs, :roles => :app, :except => {:no_symlink => true} do
-    configs = %w{ database }
+    configs = %w{ database cafepress }
     configs.map! { |file| "ln -nfs #{shared_path}/config/#{file}.yml #{release_path}/config/#{file}.yml" }
     run <<-CMD
       cd #{release_path} && #{configs.join(' && ')}
