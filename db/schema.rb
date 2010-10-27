@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101027024413) do
+ActiveRecord::Schema.define(:version => 20101027230443) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20101027024413) do
     t.text     "properties"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sales_count",        :default => 0
+    t.integer  "sales_count",                  :default => 0
     t.datetime "approved_at"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(:version => 20101027024413) do
     t.integer  "user_id"
     t.string   "offsets"
     t.integer  "category_id"
+    t.string   "cafepress_id"
+    t.string   "cafepress_dark_id"
+    t.string   "cafepress_media_url"
+    t.string   "cafepress_dark_media_url"
+    t.integer  "store_id"
+    t.string   "cafepress_top_section_id"
+    t.string   "cafepress_apparel_section_id"
+    t.string   "cafepress_other_section_id"
   end
 
   add_index "designs", ["site_id"], :name => "index_designs_on_site_id"
@@ -51,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20101027024413) do
     t.integer  "preview_file_size"
     t.datetime "preview_updated_at"
     t.string   "offsets"
+    t.boolean  "has_dark",             :default => true
   end
 
   add_index "patterns", ["site_id"], :name => "index_patterns_on_site_id"
@@ -61,9 +70,16 @@ ActiveRecord::Schema.define(:version => 20101027024413) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "default_category_id"
+    t.integer  "current_store_id"
   end
 
   add_index "sites", ["domain"], :name => "index_sites_on_domain"
+
+  create_table "stores", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

@@ -9,4 +9,6 @@ class Pattern < ActiveRecord::Base
   serialize :offsets
   
   has_attached_file :preview, PaperclipStorageHash.merge(:styles => { :medium => ["128x128", :png], :thumb => ["64x64", :png] })
+  
+  acts_as_taggable
 end

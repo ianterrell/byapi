@@ -10,12 +10,13 @@ module DesignViews
       radius = width/3 - circle_offset*2
       arrow_size = 2.to_f*height/300
       
+      # Future:  color schemes?
       set_a_color = "#0000FF"
       set_b_color = "#FF0000"
       
       font_family = "Helvetica Rounded LT Std"
       font_size = width/15
-      font_color = "#000000"      
+      font_color = options[:dark] ? "#FFFFFF" : "#000000"      
       font_options = {:"font-family" => font_family, :"font-size" => "#{font_size}px", :fill => font_color, :"alignment-baseline" => "bottom", :"text-anchor" => "middle"  }
 
       svg_image :xml => markup, :height => options[:height], :width => options[:width] do |svg|
@@ -23,7 +24,7 @@ module DesignViews
 
         # Backgrounds
         svg.circle :cx => first_center[:x], :cy => first_center[:y], :r => radius, :fill => "#ffffff", :"fill-opacity" => "1"
-        svg.circle :cx => second_center[:x], :cy => second_center[:y], :r => radius, :fill => "#ffffff", :"fill-opacity" => "0.5"
+        svg.circle :cx => second_center[:x], :cy => second_center[:y], :r => radius, :fill => "#ffffff", :"fill-opacity" => "1"
 
         svg.circle :cx => first_center[:x], :cy => first_center[:y], :r => radius, :fill => set_a_color, :"fill-opacity" => "0.5"
         svg.circle :cx => second_center[:x], :cy => second_center[:y], :r => radius, :fill => set_b_color, :"fill-opacity" => "0.5"

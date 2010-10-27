@@ -10,6 +10,8 @@ Byapi::Application.routes.draw do
     end
   end
   
+  match "/stores/:id/images.:format", :to => "stores#images"
+  
   match "/patterns/:id/preview", :to => "patterns#preview", :as => "preview_pattern"
 
   namespace :admin do
