@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101027230443) do
+ActiveRecord::Schema.define(:version => 20101028015855) do
+
+  create_table "cafepress_products", :force => true do |t|
+    t.string   "cafepress_id"
+    t.integer  "product_id"
+    t.integer  "design_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -63,6 +71,19 @@ ActiveRecord::Schema.define(:version => 20101027230443) do
   end
 
   add_index "patterns", ["site_id"], :name => "index_patterns_on_site_id"
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.string   "section"
+    t.string   "cafepress_id"
+    t.string   "media_regions"
+    t.string   "default_region"
+    t.string   "default_alignment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "dark",              :default => false
+    t.string   "marketplace_price"
+  end
 
   create_table "sites", :force => true do |t|
     t.string   "domain"

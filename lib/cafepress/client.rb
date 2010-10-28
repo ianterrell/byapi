@@ -37,6 +37,24 @@ module Cafepress
       response.is_a?(Net::HTTPOK) ? StoreSection.parse(response.body) : false
     end
     
+    def create_products_for_design(design)
+      xml = products_xml(design)
+      response = post_form('product.saveAll.cp', default_options.merge("values" => xml))
+      if response.is_a? Net::HTTPOK
+        merchandises = {}
+        ::Product.all.each do |p|
+          merchandises[p.cafepress_id] = p
+        end
+        Products.parse(response.body).products.each do |p|
+          design.cafepress_products.create :product => merchandises[p.merchandise_id], :cafepress_id => p.id
+        end
+        true
+      else
+        puts response.body
+        false
+      end
+    end
+    
     class Design
       include HappyMapper
       tag 'design'
@@ -48,6 +66,41 @@ module Cafepress
       include HappyMapper
       tag 'storeSection'
       attribute :id, String
+    end
+    
+    class MediaRegion
+      include HappyMapper
+      tag "mediaRegion"
+      attribute :name, String
+      attribute :default_alignment, String, :tag => "defaultAlignment"
+    end
+
+    class Merchandise
+      include HappyMapper
+      tag "merchandise"
+      attribute :id, String
+      attribute :name, String
+      attribute :marketplace_price, String, :tag => "marketplacePrice"
+      has_many :media_regions, MediaRegion
+    end
+
+    class MerchandiseCollection
+      include HappyMapper
+      tag "merchandiseCollection"
+      has_many :merchandise, Merchandise
+    end
+    
+    class Product
+      include HappyMapper
+      tag "product"
+      attribute :id, String
+      attribute :merchandise_id, String, :tag => "merchandiseId"
+    end
+    
+    class Products
+      include HappyMapper
+      tag "products"
+      has_many :products, Product
     end
     
     ###
@@ -62,6 +115,57 @@ module Cafepress
     def find_store(store)
       response = post_form('store.findByStoreId.cp', default_options.merge("storeId" => store.name))
       puts response.body
+    end
+    
+    def find_section(store, section_id)
+      response = post_form('store.findByStoreSectionId.cp', default_options.merge("storeId" => store.name, "storeSectionId" => section_id))
+      puts response.body
+    end
+    
+    def find_product(cafepress_product)
+      response = post_form('product.find.cp', default_options.merge("id" => cafepress_product.cafepress_id))
+      puts response.body
+    end
+    
+    def list_merchandise
+      response = post_form('merchandise.list.cp', "appKey" => @app_key)
+      collection = MerchandiseCollection.parse(response.body)
+      z = collection.merchandise.map{|m|m.name}
+      z.each do |i|
+        puts i
+      end
+    end
+    
+    def create_products
+      ::Product.destroy_all
+      response = post_form('merchandise.list.cp', "appKey" => @app_key)
+      collection = MerchandiseCollection.parse(response.body)
+      collection.merchandise.each do |m|
+        p = ::Product.new :name => m.name, :cafepress_id => m.id
+        p.media_regions = m.media_regions.map{|mr|"#{mr.name}(#{mr.default_alignment})"}.join(",")
+        
+        default = m.media_regions.select{|mr|mr.name == "FrontCenter"}.first
+        # default = m.media_regions.select{|mr|mr.name == "FrontPocket"}.first
+        default = m.media_regions.last unless default
+        
+        p.default_region = default.name
+        p.default_alignment = default.default_alignment
+        
+        p.marketplace_price = m.marketplace_price
+        
+        p.dark = !!(m.name =~ /dark/i)
+        
+        p.section = looks_like_apparel?(m.name) ? "apparel" : "other"
+        
+        p.save
+      end
+    end
+    
+    def looks_like_apparel?(name)
+      [/shirt/i, /shorts/i, /jersey/i, /bodysuit/i, /tank/i, /raglan/i, /ringer/i, /hoodie/i, /tracksuit/i, /jacket/i, /brief/i, /thong/i].each do |regex|
+        return true if name =~ regex
+      end
+      false
     end
     
   protected
@@ -98,11 +202,24 @@ module Cafepress
     def section_xml(design, parent, caption, image)
       xml = ""
       builder = Builder::XmlMarkup.new :target => xml
-      builder.storeSection :id => "0", :memberId => "0", :storeId => design.site.current_store.name, :parentSectionId => parent, 
+      builder.storeSection :id => "0", :memberId => "0", :storeId => design.store.name, :parentSectionId => parent, 
         :caption => caption, :description => "", :visible => "true", :active => "true",
         :defaultMarkupProfile => "Medium", :imageType => "png",
         :defaultProductDescription => "", :defaultProductImageId => "0", :defaultProductName => "", :teaser => "",
         :sectionImageId => image, :sectionImageWidth => 150, :sectionImageHeight => 150, :itemsAcross => 4
+      xml
+    end
+    
+    def products_xml(design)
+      xml = ""
+      builder = Builder::XmlMarkup.new :target => xml
+      builder.products do
+        ::Product.all.each do |product|
+          builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.send(:"cafepress_#{product.section}_section_id"), :sortPriority => product.sort_priority, :sellPrice => product.marketplace_price.to_f.round do
+            builder.mediaConfiguration :name => product.default_region, :designId => (product.dark? ? (design.cafepress_dark_id? ? design.cafepress_dark_id : design.cafepress_id) : design.cafepress_id)
+          end
+        end
+      end
       xml
     end
     

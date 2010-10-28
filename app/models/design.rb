@@ -7,6 +7,8 @@ class Design < ActiveRecord::Base
   belongs_to :category
   belongs_to :store
   
+  has_many :cafepress_products, :dependent => :destroy
+  
   validates_presence_of :site_id, :pattern_id, :category_id, :properties, :title
   
   serialize :properties
@@ -57,6 +59,13 @@ class Design < ActiveRecord::Base
   ## Cafepress Integration
   #
   
+  def cafepress!
+    save_to_cafepress
+    move_and_tag_designs_in_cafepress
+    build_top_level_section_in_cafepress
+    build_second_level_sections_in_cafepress
+    build_products_in_cafepress
+  end
   
   # Returns true if all design saves are successful.  Could leave orphan designs.  No biggie.
   # Returns nil if it's already been saved.  Pass true to force it to resave.
@@ -117,5 +126,9 @@ class Design < ActiveRecord::Base
     end
     self.save
     success
+  end
+  
+  def build_products_in_cafepress
+    Cafepress::Client.new.create_products_for_design self
   end
 end
