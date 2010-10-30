@@ -35,14 +35,8 @@ module Cafepress
       response.is_a?(Net::HTTPOK)
     end
     
-    def create_top_level_for_design(design)
-      xml = top_level_section_xml design
-      response = post_form('store.saveStoreSection.cp', default_options.merge("value" => xml))
-      response.is_a?(Net::HTTPOK) ? StoreSection.parse(response.body) : false
-    end
-
-    def create_second_level_section_for_design(design, section)
-      xml = section_xml(design, design.cafepress_top_section_id, section, "0")
+    def create_section_for_design(design)
+      xml = section_xml design
       response = post_form('store.saveStoreSection.cp', default_options.merge("value" => xml))
       response.is_a?(Net::HTTPOK) ? StoreSection.parse(response.body) : false
     end
@@ -205,21 +199,14 @@ module Cafepress
       xml
     end
     
-    #<storeSection id="0" memberId="0" storeId="" parentSectionId="0" 
-    #caption="A caption" description="A description" visible="true" 
-    #active="true" defaultMarkupProfile="Medium" defaultProductMarkup="1" 
-    #sectionImageId="0" sectionImageWidth="100" sectionImageHeight="100" 
-    #sortPriority="1" itemsAcross="3" categoryId="1" imageType="jpg" 
-    #defaultProductDescription="A product description." defaultProductImageId="0" 
-    #defaultProductName="product name" teaser="Section Teaser" />
-    def top_level_section_xml(design)
-      section_xml(design, "0", design.title, design.cafepress_id)
-    end
-    
-    def section_xml(design, parent, caption, image)
+    def section_xml(design, options={})
+      store = options.delete(:store) || design.store.name
+      parent = options.delete(:parent) || "0"
+      caption = options.delete(:caption) || design.title
+      image = options.delete(:image) || design.cafepress_id
       xml = ""
       builder = Builder::XmlMarkup.new :target => xml
-      builder.storeSection :id => "0", :memberId => "0", :storeId => design.store.name, :parentSectionId => parent, 
+      builder.storeSection :id => "0", :memberId => "0", :storeId => store, :parentSectionId => parent, 
         :caption => caption, :description => "", :visible => "true", :active => "true",
         :defaultMarkupProfile => "Medium", :imageType => "png",
         :defaultProductDescription => "", :defaultProductImageId => "0", :defaultProductName => "", :teaser => "",
@@ -232,7 +219,7 @@ module Cafepress
       builder = Builder::XmlMarkup.new :target => xml
       builder.products do
         ::Product.all.each do |product|
-          builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.send(:"cafepress_#{product.section}_section_id"), :sortPriority => product.sort_priority, :sellPrice => product.marketplace_price.to_f.round do
+          builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => product.sort_priority, :sellPrice => product.marketplace_price.to_f.round do
             builder.mediaConfiguration :name => product.default_region, :designId => (product.dark? ? (design.cafepress_dark_id? ? design.cafepress_dark_id : design.cafepress_id) : design.cafepress_id)
           end
         end

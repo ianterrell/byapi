@@ -17,7 +17,7 @@ class Design < ActiveRecord::Base
   has_attached_file :image, PaperclipStorageHash.merge(:styles => { :large => ["450x450", :png], :small => ["150x150", :png] })
   
   attr_protected :sales_count, :approved_at, :cafepress_id, :cafepress_dark_id, :cafepress_media_url, :cafepress_dark_media_url,
-    :cafepress_top_section_id, :cafepress_apparel_section_id, :cafepress_other_section_id
+    :cafepress_section_id
   
   acts_as_taggable
   
@@ -62,8 +62,7 @@ class Design < ActiveRecord::Base
   def cafepress!
     save_to_cafepress
     move_and_tag_designs_in_cafepress
-    build_top_level_section_in_cafepress
-    build_second_level_sections_in_cafepress
+    build_section_in_cafepress
     build_products_in_cafepress
   end
   handle_asynchronously :cafepress! if Rails.env.production?
@@ -103,30 +102,15 @@ class Design < ActiveRecord::Base
     cafepress_client.move_and_tag_design self, self.site.domain, self.tags_for_cafepress, self.category.key
   end
   
-  def build_top_level_section_in_cafepress
-    result = cafepress_client.create_top_level_for_design self
+  def build_section_in_cafepress
+    result = cafepress_client.create_section_for_design self
     if result
-      self.cafepress_top_section_id = result.id
+      self.cafepress_section_id = result.id
       self.save
       true
     else
       false
     end
-  end
-  
-  def build_second_level_sections_in_cafepress
-    success = false
-    result = cafepress_client.create_second_level_section_for_design self, "Shirts and Apparel"
-    if result
-      self.cafepress_apparel_section_id = result.id
-      result2 = cafepress_client.create_second_level_section_for_design self, "Mugs, Cards and Lots of Other Stuff"
-      if result2
-        self.cafepress_other_section_id = result2.id
-        success = true
-      end
-    end
-    self.save
-    success
   end
   
   def build_products_in_cafepress
