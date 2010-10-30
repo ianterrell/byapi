@@ -1,6 +1,8 @@
 require 'builder'
 
 class Design < ActiveRecord::Base
+  has_friendly_id :title, :use_slug => true
+  
   belongs_to :site
   belongs_to :pattern
   belongs_to :user

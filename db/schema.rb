@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030194034) do
+ActiveRecord::Schema.define(:version => 20101030194812) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20101030194034) do
     t.string   "cafepress_dark_media_url"
     t.integer  "store_id"
     t.string   "cafepress_section_id"
+    t.string   "cached_slug"
   end
 
   add_index "designs", ["site_id"], :name => "index_designs_on_site_id"
@@ -106,6 +107,18 @@ ActiveRecord::Schema.define(:version => 20101030194034) do
   end
 
   add_index "sites", ["domain"], :name => "index_sites_on_domain"
+
+  create_table "slugs", :force => true do |t|
+    t.string   "name"
+    t.integer  "sluggable_id"
+    t.integer  "sequence",                     :default => 1, :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
+  add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
 
   create_table "stores", :force => true do |t|
     t.string   "name"

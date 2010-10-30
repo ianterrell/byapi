@@ -1,4 +1,4 @@
-#social
+.social
   %span.st_twitter_large{:displayText => "Tweet", :st_url => design_url(design), :st_title => design.title}
   %span.st_facebook_large{:displayText => "Facebook", :st_url => design_url(design), :st_title => design.title}
   %span.st_reddit_large{:displayText => "Reddit", :st_url => design_url(design), :st_title => design.title}
@@ -8,4 +8,4 @@
   %span.st_email_large{:displayText => "Email", :st_url => design_url(design), :st_title => design.title}
   %span.st_sharethis_large{:displayText => "ShareThis", :st_url => design_url(design), :st_title => design.title}
   %p Embed on your blog with
-  %pre.embed=CGI::escapeHTML(link_to(image_tag(design.image.url, :alt => design.title), design_url(design)))
+  %pre.embed=CGI::escapeHTML(link_to(image_tag(design.image.url, :alt => "#{design.title} from #{design.site.domain}"), design_url(design)))

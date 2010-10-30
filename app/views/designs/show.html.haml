@@ -1,6 +1,7 @@
 %h2= @design.title
 = image_tag(@design.image.url)
 
+= render :partial => "purchase", :locals => { :design => @design }
 = render :partial => "social", :locals => { :design => @design }
 
 %ul.transcript

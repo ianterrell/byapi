@@ -26,7 +26,9 @@ input[type=submit], input[type=button] { font-size: 16px; padding: 5px; cursor: 
 input[type=submit]:hover, input[type=button]:hover { color: #fff; background-color: #3399ff; border-color: #1A8CFF; }
 .clearfix { clear: both; }
 
-#social { margin-top: 20px; }
+.social { margin-top: 10px; }
+.purchase a { color: #333!important; padding: 5px; }
+.purchase a:hover { background-color: #3399FF; color: white!important; text-decoration: none; }
 
 h2 a { text-decoration: none; }
 h2 a { color: #333!important; }
