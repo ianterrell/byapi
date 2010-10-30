@@ -5,6 +5,7 @@
     %tr
       %th Name
       %th Section
+      %th Id
       %th Price
       %th Dark?
   %tbody#products
@@ -12,6 +13,7 @@
       %tr.product{ :id => "product-#{product.id}" }
         %td= product.name
         %td= product.section
+        %td= product.id
         %td= "$" + product.marketplace_price
         %td= product.dark? ? "Yes" : "No"
 

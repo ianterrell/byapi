@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030213023) do
+ActiveRecord::Schema.define(:version => 20101030215538) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20101030213023) do
     t.boolean  "dark",              :default => false
     t.string   "marketplace_price"
     t.integer  "position",          :default => 0
+    t.boolean  "ignored",           :default => false
   end
 
   create_table "sites", :force => true do |t|
