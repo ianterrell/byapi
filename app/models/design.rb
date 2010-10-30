@@ -66,7 +66,7 @@ class Design < ActiveRecord::Base
     build_second_level_sections_in_cafepress
     build_products_in_cafepress
   end
-  handle_asynchronously :cafepress! 
+  handle_asynchronously :cafepress! if Rails.env.production?
   
   # Returns true if all design saves are successful.  Could leave orphan designs.  No biggie.
   # Returns nil if it's already been saved.  Pass true to force it to resave.
@@ -76,7 +76,7 @@ class Design < ActiveRecord::Base
     end
     
     success = false
-    result = Cafepress::Client.new.save_design self
+    result = cafepress_client.save_design self
     if result
       self.cafepress_id = result.id
       self.cafepress_media_url = result.media_url
@@ -84,7 +84,7 @@ class Design < ActiveRecord::Base
     end
     if self.pattern.has_dark?
       success = false
-      result = Cafepress::Client.new.save_design self, :dark => true
+      result = cafepress_client.save_design self, :dark => true
       if result
         self.cafepress_dark_id = result.id
         self.cafepress_dark_media_url = result.media_url
@@ -100,11 +100,11 @@ class Design < ActiveRecord::Base
   end
   
   def move_and_tag_designs_in_cafepress
-    Cafepress::Client.new.move_and_tag_design self, self.site.domain, self.tags_for_cafepress, self.category.key
+    cafepress_client.move_and_tag_design self, self.site.domain, self.tags_for_cafepress, self.category.key
   end
   
   def build_top_level_section_in_cafepress
-    result = Cafepress::Client.new.create_top_level_for_design self
+    result = cafepress_client.create_top_level_for_design self
     if result
       self.cafepress_top_section_id = result.id
       self.save
@@ -116,10 +116,10 @@ class Design < ActiveRecord::Base
   
   def build_second_level_sections_in_cafepress
     success = false
-    result = Cafepress::Client.new.create_second_level_section_for_design self, "Shirts and Apparel"
+    result = cafepress_client.create_second_level_section_for_design self, "Shirts and Apparel"
     if result
       self.cafepress_apparel_section_id = result.id
-      result2 = Cafepress::Client.new.create_second_level_section_for_design self, "Mugs, Cards and Lots of Other Stuff"
+      result2 = cafepress_client.create_second_level_section_for_design self, "Mugs, Cards and Lots of Other Stuff"
       if result2
         self.cafepress_other_section_id = result2.id
         success = true
@@ -130,6 +130,10 @@ class Design < ActiveRecord::Base
   end
   
   def build_products_in_cafepress
-    Cafepress::Client.new.create_products_for_design self
+    cafepress_client.create_products_for_design self
+  end
+  
+  def cafepress_client
+    @cafepress_client ||= Cafepress::Client.new.connect!
   end
 end

@@ -7,8 +7,18 @@ module Cafepress
   class Client
     attr_accessor :app_key, :user_token
 
-    def initialize(app_key=CAFEPRESS[:app_key], user_token=CAFEPRESS[:user_token])
-      @app_key, @user_token = app_key, user_token
+    def initialize(app_key=CAFEPRESS[:app_key], email=CAFEPRESS[:email], password=CAFEPRESS[:password])
+      @app_key, @email, @password = app_key, email, password
+    end
+    
+    def connect!
+      response = post_form('authentication.getUserToken.cp', default_options.merge('email' => @email, 'password' => @password))
+      if response.is_a?(Net::HTTPOK) && response.body =~ /<value>([0-9\-a-f]+)<\/value>/
+        @user_token = $1
+        self
+      else
+        raise 'could not connect to cafepress'
+      end
     end
     
     def save_design(design, options={})
@@ -53,6 +63,11 @@ module Cafepress
         puts response.body
         false
       end
+    end
+    
+    class Value
+      include HappyMapper
+      tag 'value'
     end
     
     class Design
@@ -178,7 +193,9 @@ module Cafepress
     end
   
     def default_options
-      {'appKey' => @app_key, 'userToken' => @user_token}
+      options = {'appKey' => @app_key}
+      options['userToken'] = @user_token if @user_token
+      options
     end
     
     def blank_design_xml(design)
