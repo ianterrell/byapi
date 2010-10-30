@@ -23,8 +23,9 @@ class Design < ActiveRecord::Base
   
   acts_as_taggable
   
-  scope :unapproved, where("approved_at is null")
+  scope :unapproved, where("approved_at is null and ignored_at is null")
   scope :approved, where("approved_at is not null")
+  scope :ignored, where("ignored_at is not null")
   scope :recent, order("approved_at desc")
   scope :best_selling, order("sales_count desc")
   
@@ -41,6 +42,14 @@ class Design < ActiveRecord::Base
     self.approved_at = Time.now
     save
     cafepress!
+  end
+  
+  def reject!
+    destroy
+  end
+  
+  def ignore!
+    self.update_attribute :ignored_at, Time.now
   end
   
   def render(options={})

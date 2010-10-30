@@ -12,6 +12,7 @@
           %td= select_tag "designs[#{design.id}][category_id]", options_from_collection_for_select(Category.all, :id, :name, design.category_id)
           %td= text_field_tag "designs[#{design.id}][tag_list]", design.tags.join(", ")
           %td
-            = label_tag "", radio_button_tag("designs[#{design.id}][approval]", "1") + "Approve"
-            = label_tag "", radio_button_tag("designs[#{design.id}][approval]", "0") + "Reject"
+            = label_tag "", radio_button_tag("designs[#{design.id}][action]", "approve") + "Approve"
+            = label_tag "", radio_button_tag("designs[#{design.id}][action]", "ignore") + "Ignore"
+            = label_tag "", radio_button_tag("designs[#{design.id}][action]", "reject") + "Reject"
     = submit_tag
