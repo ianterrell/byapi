@@ -218,11 +218,21 @@ module Cafepress
         sort_priority = [products_to_build.count + 1, 100].min
         products_to_build.each do |product|
           builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => [sort_priority -= 1,0].max, :sellPrice => product.price.to_f.round do
-            builder.mediaConfiguration :name => product.default_region, :designId => (product.dark? ? (design.cafepress_dark_id? ? design.cafepress_dark_id : design.cafepress_id) : design.cafepress_id)
+            builder.mediaConfiguration :name => product.default_region, :designId => cafepress_id_for(design, product)
           end
         end
       end
       xml
+    end
+    
+    def cafepress_id_for(design, product)
+      if product.dark? && !design.cafepress_dark_id.blank?
+        design.cafepress_dark_id
+      elsif !product.padding.blank?
+        design.send("cafepress_id_padding_#{product.padding}")
+      else
+        design.cafepress_id
+      end
     end
     
     ###

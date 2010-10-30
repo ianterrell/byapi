@@ -89,28 +89,44 @@ class Design < ActiveRecord::Base
   # Returns true if all design saves are successful.  Could leave orphan designs.  No biggie.
   # Returns nil if it's already been saved.  Pass true to force it to resave.
   def save_to_cafepress(force=false)
-    if !force && cafepress_id && (!pattern.has_dark? || cafepress_dark_id)
+    if !force && cafepress_id
       return nil
     end
-    
-    success = false
+    success = []
     result = cafepress_client.save_design self
     if result
       self.cafepress_id = result.id
       self.cafepress_media_url = result.media_url
-      success = true
+      success << true
+    else
+      success << false
     end
     if self.pattern.has_dark?
-      success = false
       result = cafepress_client.save_design self, :dark => true
       if result
         self.cafepress_dark_id = result.id
         self.cafepress_dark_media_url = result.media_url
-        success = true
+        success << true
+      else
+        success << false
       end
     end
-    self.save
-    success
+    [:x, :y, :y_big].each do |padding|
+      result = cafepress_client.save_design self, :padding => padding
+      if result
+        self.send(:"cafepress_id_padding_#{padding}=", result.id)
+        success << true
+      else
+        success << false
+      end
+    end
+    if success.all?{|x|x}
+      self.save
+      true
+    else
+      self.reload
+      false
+    end
   end
   
   def tags_for_cafepress

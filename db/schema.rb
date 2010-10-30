@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030215538) do
+ActiveRecord::Schema.define(:version => 20101030232331) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20101030215538) do
     t.text     "properties"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sales_count",              :default => 0
+    t.integer  "sales_count",               :default => 0
     t.datetime "approved_at"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(:version => 20101030215538) do
     t.string   "cafepress_section_id"
     t.string   "cached_slug"
     t.datetime "ignored_at"
+    t.string   "cafepress_id_padded_x"
+    t.string   "cafepress_id_padded_y"
+    t.string   "cafepress_id_padded_y_big"
   end
 
   add_index "designs", ["site_id"], :name => "index_designs_on_site_id"
@@ -99,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20101030215538) do
     t.string   "marketplace_price"
     t.integer  "position",          :default => 0
     t.boolean  "ignored",           :default => false
+    t.string   "custom_price"
+    t.string   "padding"
   end
 
   create_table "sites", :force => true do |t|
