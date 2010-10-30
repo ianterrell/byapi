@@ -43,3 +43,9 @@ ul.transcript { list-style: none; margin: 0px; padding: 0px; color: #aaa;}
 #properties { clear: both; }
 
 input.offset { width: 40px; }
+
+.pagination { color: #333!important; }
+.pagination span, .pagination em, .pagination a { padding: 3px; }
+.pagination a { text-decoration: none; }
+.pagination a { color: #333!important; }
+.pagination a:hover { background-color: #3399FF; color: white!important; text-decoration: none; }
