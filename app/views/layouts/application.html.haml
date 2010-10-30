@@ -2,6 +2,11 @@
 %html
   %head
     %title= @title || @design.try(:title) || @site.title
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }/
+    %meta{:name => "description", :content => @meta_description || "Computers and men join together to build visual things." }/
+    %meta{:name => "generator", :content => "I made this website with me own two hands.  But do they call me the website maker?  No." }/
+    %meta{:property => "og:site_name", :content => "#{@site.title}" }/
+    = yield :extra_meta
     = stylesheet_link_tag "scaffold", "application"
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
     = javascript_include_tag "rails", "application"
@@ -14,9 +19,10 @@
     #header
       %h1= link_to @site.title, root_url
       #menu
-        =link_to_unless_current "Recent", root_path
-        =link_to_unless_current "Best Selling", best_selling_designs_path
-        =link_to_unless_current "Make your own!", new_design_path
+        = link_to_unless_current "Recent", root_path
+        = link_to_unless_current "Best Selling", best_selling_designs_path
+        = link_to_unless_current "Make your own!", new_design_path
+        = link_to_unless_current "About", about_path
       
     #content
       %p#notice= notice

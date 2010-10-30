@@ -1,0 +1,12 @@
+%p I wanted to explore generating pictures programmatically, so I built this little application.  You're invited to use it to generate your own little pictures to do whatever you wish with.  However, if you put them anywhere high traffic, I'd appreciate it if you'd download them and host them yourself.
+
+%p 
+  You can find products featuring these designs here:
+  = link_to "http://www.cafepress.com/#{@site.current_store.name}", "http://www.cafepress.com/#{@site.current_store.name}"
+
+- if @sites.count > 1
+  %p I also run a few more sites with this engine:
+
+  %ul
+    - @sites.reject{|x|x == @site}.each do |site|
+      %li= link_to site.name, "http://www.#{site.domain}"

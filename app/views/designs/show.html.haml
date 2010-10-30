@@ -1,3 +1,11 @@
+- @meta_description = @design.description
+- content_for :extra_meta do
+  %meta{:property => "og:title", :content => @design.title }/
+  %meta{:property => "og:type", :content => "article" }/
+  %meta{:property => "og:url", :content => design_url(@design) }/
+  %meta{:property => "og:image", :content => "http://www.#{@site.domain}" + @design.image.url }/
+  %meta{:property => "og:description", :content => @design.description }/
+
 %h2= @design.title
 = image_tag(@design.image.url)
 

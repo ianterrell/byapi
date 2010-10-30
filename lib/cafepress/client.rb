@@ -200,17 +200,13 @@ module Cafepress
     end
     
     def section_xml(design, options={})
-      store = options.delete(:store) || design.store.name
-      parent = options.delete(:parent) || "0"
-      caption = options.delete(:caption) || design.title
-      image = options.delete(:image) || design.cafepress_id
       xml = ""
       builder = Builder::XmlMarkup.new :target => xml
-      builder.storeSection :id => "0", :memberId => "0", :storeId => store, :parentSectionId => parent, 
-        :caption => caption, :description => "", :visible => "true", :active => "true",
+      builder.storeSection :id => "0", :memberId => "0", :storeId => design.store.name, :parentSectionId => "0", 
+        :caption => design.title, :description => "", :visible => "true", :active => "true",
         :defaultMarkupProfile => "Medium", :imageType => "png",
-        :defaultProductDescription => "", :defaultProductImageId => "0", :defaultProductName => "", :teaser => "",
-        :sectionImageId => image, :sectionImageWidth => 150, :sectionImageHeight => 150, :itemsAcross => 4
+        :defaultProductDescription => design.description, :defaultProductImageId => "0", :defaultProductName => "", :teaser => "",
+        :sectionImageId => design.cafepress_id, :sectionImageWidth => 150, :sectionImageHeight => 150, :itemsAcross => 4
       xml
     end
     

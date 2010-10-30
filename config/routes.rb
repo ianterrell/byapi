@@ -1,6 +1,7 @@
 Byapi::Application.routes.draw do
   devise_for :users
 
+  match 'about', :to => "pages#about", :as => 'about'
   root :to => "designs#recent"
   
   resources :designs, :only => [:new, :create, :show] do

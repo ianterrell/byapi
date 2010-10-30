@@ -4,7 +4,7 @@
     ="var selectedPattern = #{@design.pattern.to_json.html_safe}.pattern;".html_safe
 
 %div#patterns{:style => "#{'display:none;' unless new_design?}"}
-  %p What type of graph would you like to make?
+  %p What type would you like to make?
   - @site.patterns.each do |pattern|
     %div.pattern{"data-pattern-id" => pattern.id}
       = image_tag pattern.preview.url(:medium)
