@@ -13,7 +13,6 @@
 = render :partial => "social", :locals => { :design => @design }
 
 %ul.transcript
-  - @design.properties.each_pair do |key, value|
-    %li="#{key.titleize}: #{value}"
-  %li= "Category: #{@design.category.name}"
-  %li= "Tagged with: #{@design.tag_list}"
+  %li= @design.description
+  %li= "In the category #{@design.category.name}"
+  %li= "Tagged with #{@design.tag_list}"
