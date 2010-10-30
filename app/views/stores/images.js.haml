@@ -1,5 +1,5 @@
 media_urls = {
-= @store.designs.where("cafepress_section_id is not null").map{|d|"#{d.cafepress_top_section_id}: '#{d.cafepress_media_url}'"}.join(",\n")
+= @store.designs.where("cafepress_section_id is not null").map{|d|"#{d.cafepress_section_id}: '#{d.cafepress_media_url}'"}.join(",\n")
 };
 jQuery(function($) {
 $('img').each(function(index, img){
