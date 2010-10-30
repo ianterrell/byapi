@@ -29,7 +29,7 @@ module Cafepress
     end
     
     def move_and_tag_design(design, folder, tags, category)
-      design_ids = design.cafepress_id
+      design_ids = "#{design.cafepress_id},#{design.cafepress_id_padded_x},#{design.cafepress_id_padded_y},#{design.cafepress_id_padded_y_big}"
       design_ids += ",#{design.cafepress_dark_id}" if design.cafepress_dark_id
       response = post_form('design.moveAndTagDesigns.cp', default_options.merge("designIds" => design_ids, "folderName" => folder, "tags" => tags, "category" => category))
       response.is_a?(Net::HTTPOK)
