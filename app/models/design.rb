@@ -38,7 +38,7 @@ class Design < ActiveRecord::Base
     self.store = site.current_store
     self.approved_at = Time.now
     save
-    # TODO:  add a delayed job to create items in store
+    cafepress!
   end
   
   def render(options={})
@@ -66,6 +66,7 @@ class Design < ActiveRecord::Base
     build_second_level_sections_in_cafepress
     build_products_in_cafepress
   end
+  handle_asynchronously :cafepress! 
   
   # Returns true if all design saves are successful.  Could leave orphan designs.  No biggie.
   # Returns nil if it's already been saved.  Pass true to force it to resave.
