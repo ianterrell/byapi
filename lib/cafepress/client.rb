@@ -229,7 +229,7 @@ module Cafepress
       if product.dark? && !design.cafepress_dark_id.blank?
         design.cafepress_dark_id
       elsif !product.padding.blank?
-        design.send("cafepress_id_padding_#{product.padding}")
+        design.send("cafepress_id_padded_#{product.padding}")
       else
         design.cafepress_id
       end
