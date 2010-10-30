@@ -29,6 +29,10 @@ class Design < ActiveRecord::Base
   scope :recent, order("approved_at desc")
   scope :best_selling, order("sales_count desc")
   
+  def ignored?
+    !!ignored_at
+  end
+  
   def approved?
     !!approved_at
   end

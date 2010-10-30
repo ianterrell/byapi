@@ -3,14 +3,20 @@
 %table
   %tr
     %th Title
-    %th Approved
+    %th Status
     %th Author
     %th Category
     %th 
   - @designs.each do |design|
     %tr
       %td= link_to design.title, [:admin, @site, design]
-      %td= design.approved? ? "Yes" : "No"
+      %td
+        -if design.approved? 
+          Approved
+        - elsif design.ignored?
+          Ignored
+        - elsif design.pending? 
+          Pending
       %td= design.try(:user).try(:email)
       %td= design.category.try(:name)
       %td

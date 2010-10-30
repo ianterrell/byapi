@@ -17,6 +17,12 @@ Byapi::Application.routes.draw do
 
   namespace :admin do
     root :to => "sites#index"
+    resources :stores
+    resources :products, :only => :index do
+      collection do
+        post :sort
+      end
+    end
     resources :sites do
       resources :patterns
       resources :designs, :except => [:new, :create] do

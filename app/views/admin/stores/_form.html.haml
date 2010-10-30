@@ -1,0 +1,4 @@
+= form_for([:admin, @store]) do |f|
+  = errors_for @store
+  = field_for f, :name
+  = actions_for f

@@ -1,0 +1,14 @@
+- breadcrumbs :root
+
+%table
+  %tr
+    %th Name
+    %th 
+  - @stores.each do |store|
+    %tr
+      %td= link_to store.name, [:admin, store]
+      %td
+        = link_to 'Edit', edit_admin_store_path(store)
+        / = link_to 'Destroy', [:admin, store], :confirm => 'Are you sure?', :method => :delete
+
+= link_to 'New Site', new_admin_store_path

@@ -214,8 +214,10 @@ module Cafepress
       xml = ""
       builder = Builder::XmlMarkup.new :target => xml
       builder.products do
-        ::Product.all.each do |product|
-          builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => product.sort_priority, :sellPrice => product.marketplace_price.to_f.round do
+        products_to_build = ::Product.all
+        sort_priority = [products_to_build.count + 1, 100].min
+        products_to_build.each do |product|
+          builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => [sort_priority -= 1,0].max, :sellPrice => product.marketplace_price.to_f.round do
             builder.mediaConfiguration :name => product.default_region, :designId => (product.dark? ? (design.cafepress_dark_id? ? design.cafepress_dark_id : design.cafepress_id) : design.cafepress_id)
           end
         end

@@ -1,0 +1,18 @@
+- breadcrumbs :root
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Section
+      %th Price
+      %th Dark?
+  %tbody#products
+    - @products.each do |product|
+      %tr.product{ :id => "product-#{product.id}" }
+        %td= product.name
+        %td= product.section
+        %td= "$" + product.marketplace_price
+        %td= product.dark? ? "Yes" : "No"
+
+= link_to 'Refresh Products', '#', :onclick => "TODO!"
