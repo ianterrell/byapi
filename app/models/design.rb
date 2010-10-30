@@ -57,6 +57,10 @@ class Design < ActiveRecord::Base
     copy
   end
   
+  def description
+    Liquid::Template.parse(pattern.description).render(properties).gsub('|', ' ')
+  end
+  
   ###
   ## Cafepress Integration
   #

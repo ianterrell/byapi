@@ -28,6 +28,8 @@ gem 'multipart-post'
 gem 'daemons', '1.0.10'
 gem 'delayed_job'
 
+gem "liquid"
+
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'rspec-rails'

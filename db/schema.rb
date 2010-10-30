@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030194812) do
+ActiveRecord::Schema.define(:version => 20101030200108) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20101030194812) do
     t.datetime "preview_updated_at"
     t.string   "offsets"
     t.boolean  "has_dark",             :default => true
+    t.string   "description"
   end
 
   add_index "patterns", ["site_id"], :name => "index_patterns_on_site_id"
