@@ -23,7 +23,15 @@ module Cafepress
     
     def save_design(design, options={})
       xml = blank_design_xml design
-      svg = design.render options.merge(:height => 3000, :width => 3000)
+      
+      width = 3000
+      height = 3000
+      
+      padding = options[:padding].try :to_s
+      bleed_x = padding == "x" ? 0.08*width : 0
+      bleed_y = padding == "y" ? 0.08*height : (padding == "y_big" ? 0.16*height : 0)
+      
+      svg = design.render options.merge(:height => height+2*bleed_y, :width => width+2*bleed_x)
       response = post_form('design.save.cp', default_options.merge({"value" => xml, "svg" => svg}))
       response.is_a?(Net::HTTPOK) ? Design.parse(response.body) : false
     end
