@@ -24,6 +24,8 @@ gem 'will_paginate', '3.0.pre2'
 gem 'paperclip', :git => 'http://github.com/thoughtbot/paperclip.git'
 
 gem 'multipart-post'
+
+gem 'daemons', '1.0.10'
 gem 'delayed_job'
 
 group :development, :test do
