@@ -87,11 +87,8 @@ class Design < ActiveRecord::Base
   handle_asynchronously :cafepress! if Rails.env.production?
   
   # Returns true if all design saves are successful.  Could leave orphan designs.  No biggie.
-  # Returns nil if it's already been saved.  Pass true to force it to resave.
-  def save_to_cafepress(force=false)
-    if !force && cafepress_id
-      return nil
-    end
+  # Returns nil if it's already been saved.
+  def save_to_cafepress
     success = []
     result = cafepress_client.save_design self
     if result
