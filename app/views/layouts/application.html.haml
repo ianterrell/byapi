@@ -15,6 +15,7 @@
     %script{:type => "text/javascript"}
       stLight.options({publisher:'b29ef4c5-8fbd-4831-9723-1ec9aa5d17cd'});
     = csrf_meta_tag
+    = render :partial => "/layouts/analytics"
   %body
     #header
       %h1= link_to @site.title, root_url

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030204740) do
+ActiveRecord::Schema.define(:version => 20101030210926) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20101030204740) do
     t.datetime "updated_at"
     t.integer  "default_category_id"
     t.integer  "current_store_id"
+    t.string   "analytics_code"
   end
 
   add_index "sites", ["domain"], :name => "index_sites_on_domain"
