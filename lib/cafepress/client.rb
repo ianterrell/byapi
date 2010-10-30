@@ -214,7 +214,7 @@ module Cafepress
       xml = ""
       builder = Builder::XmlMarkup.new :target => xml
       builder.products do
-        products_to_build = ::Product.all
+        products_to_build = ::Product.not_ignored
         sort_priority = [products_to_build.count + 1, 100].min
         products_to_build.each do |product|
           builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => [sort_priority -= 1,0].max, :sellPrice => product.price.to_f.round do
