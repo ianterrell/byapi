@@ -23,7 +23,7 @@ set :deploy_to,      "/home/ian/#{application}"
 
 after "deploy:update_code","deploy:symlink_configs"
 after "deploy:update_code","deploy:cleanup"
-# after "deploy:update_code","delayed_job:restart"
+after "deploy:update_code","delayed_job:restart"
 after "deploy:update_code", "deploy:bundle_install"
 # after "deploy:update_code","deploy:package_assets"
 

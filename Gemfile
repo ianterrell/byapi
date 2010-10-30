@@ -24,6 +24,7 @@ gem 'will_paginate', '3.0.pre2'
 gem 'paperclip', :git => 'http://github.com/thoughtbot/paperclip.git'
 
 gem 'multipart-post'
+gem 'delayed_job'
 
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
