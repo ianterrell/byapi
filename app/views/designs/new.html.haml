@@ -31,9 +31,15 @@
           = label_for_property property
           = input_for_property property, @design.properties[property[:name]]
           %br/
+          
     .buttons
       = submit_tag "Preview", :id => "preview-design"
       = submit_tag "Create"
+      
+    = f.check_box :permission_to_use, :class => "checkbox"
+    = f.label :permission_to_use, "I give you permission to feature this on your site and store.", :class => "checkbox"
+    %br/  
+  
     = link_to "Advanced Options", "#", :id => "advanced-options-toggle"
     #advanced-options{:style => "#{'display:none;' if new_design? || offsets_blank?}"}
       %p I took a good guess where you want stuff, but maybe you're picky.  Add offset values to fine tune the placement of each element.

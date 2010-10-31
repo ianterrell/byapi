@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101031000339) do
+ActiveRecord::Schema.define(:version => 20101031001506) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20101031000339) do
     t.string   "cafepress_section_id"
     t.string   "cached_slug"
     t.datetime "ignored_at"
+    t.boolean  "permission_to_use",        :default => true
   end
 
   add_index "designs", ["site_id"], :name => "index_designs_on_site_id"

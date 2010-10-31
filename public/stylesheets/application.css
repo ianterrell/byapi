@@ -41,6 +41,8 @@ ul.transcript { list-style: none; margin: 0px; padding: 0px; color: #aaa;}
 #new-design-fields .buttons { padding-left: 140px; }
 #new-design-fields .formError { margin-left: 150px; margin-top: -10px; margin-bottom: 10px; color: #CC0000;}
 #properties { clear: both; }
+#new-design-fields input.checkbox { }
+#new-design-fields label.checkbox { float:none; }
 
 input.offset { width: 40px; }
 

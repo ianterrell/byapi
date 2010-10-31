@@ -11,6 +11,7 @@
           %td= link_to design.title, [:admin, @site, design]
           %td= select_tag "designs[#{design.id}][category_id]", options_from_collection_for_select(Category.all, :id, :name, design.category_id)
           %td= text_field_tag "designs[#{design.id}][tag_list]", design.tags.join(", ")
+          %td= design.permission_to_use? ? "Permitted" : "Not Permitted"
           %td
             = label_tag "", radio_button_tag("designs[#{design.id}][action]", "approve") + "Approve"
             = label_tag "", radio_button_tag("designs[#{design.id}][action]", "ignore") + "Ignore"
