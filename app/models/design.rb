@@ -108,15 +108,6 @@ class Design < ActiveRecord::Base
         success << false
       end
     end
-    [:x, :y, :y_big].each do |padding|
-      result = cafepress_client.save_design self, :padding => padding
-      if result
-        self.send(:"cafepress_id_padded_#{padding}=", result.id)
-        success << true
-      else
-        success << false
-      end
-    end
     if success.all?{|x|x}
       self.save
       true

@@ -23,21 +23,15 @@ module Cafepress
     
     def save_design(design, options={})
       xml = blank_design_xml design
-      
       width = 3000
       height = 3000
-      
-      padding = options[:padding].try :to_s
-      bleed_x = padding == "x" ? 0.08*width : 0
-      bleed_y = padding == "y" ? 0.08*height : (padding == "y_big" ? 0.16*height : 0)
-      
-      svg = design.render options.merge(:height => height+2*bleed_y, :width => width+2*bleed_x)
+      svg = design.render options.merge(:height => height, :width => width)
       response = post_form('design.save.cp', default_options.merge({"value" => xml, "svg" => svg}))
       response.is_a?(Net::HTTPOK) ? Design.parse(response.body) : false
     end
     
     def move_and_tag_design(design, folder, tags, category)
-      design_ids = "#{design.cafepress_id},#{design.cafepress_id_padded_x},#{design.cafepress_id_padded_y},#{design.cafepress_id_padded_y_big}"
+      design_ids = design.cafepress_id
       design_ids += ",#{design.cafepress_dark_id}" if design.cafepress_dark_id
       response = post_form('design.moveAndTagDesigns.cp', default_options.merge("designIds" => design_ids, "folderName" => folder, "tags" => tags, "category" => category))
       response.is_a?(Net::HTTPOK)
@@ -236,8 +230,6 @@ module Cafepress
     def cafepress_id_for(design, product)
       if product.dark? && !design.cafepress_dark_id.blank?
         design.cafepress_dark_id
-      elsif !product.padding.blank?
-        design.send("cafepress_id_padded_#{product.padding}")
       else
         design.cafepress_id
       end
