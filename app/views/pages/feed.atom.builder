@@ -14,7 +14,7 @@ atom_feed do |feed|
       html = image_tag "http://#{@site.domain}#{design.image.url}", :alt => design.title
       html << "<br/>".html_safe
       if design.cafepress_section_id
-        html << link_to("Buy this design on a t-shirt, mug, greeting card, water bottle, or more!", "http://www.cafepress.com/#{design.store.name}/#{design.cafepress_section_id}")
+        html << link_to("Buy this design on a t-shirt, mug, water bottle, or more!", "http://www.cafepress.com/#{design.store.name}/#{design.cafepress_section_id}")
       end
       
       entry.summary :type => "html" do
