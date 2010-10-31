@@ -1,6 +1,7 @@
 Byapi::Application.routes.draw do
   devise_for :users
 
+  match "feed.:format", :to => "pages#feed", :as => "feed"
   match 'about', :to => "pages#about", :as => 'about'
   root :to => "designs#recent"
   
