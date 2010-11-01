@@ -26,6 +26,7 @@
         = link_to_unless_current "Recent", root_path
         = link_to_unless_current "Best Selling", best_selling_designs_path
         = link_to_unless_current "Make your own!", new_design_path
+        = link_to_unless_current "Store", "http://www.cafepress.com/#{@site.current_store.name}"
         = link_to_unless_current "About", about_path
       
     #content
