@@ -11,9 +11,6 @@ module DesignViews
       axes_offset = height/10
       curve = 4
       
-      parameters[:x_axis] = "Something"
-      parameters[:y_axis] = "Something Else"
-      
       font_family = "Helvetica Rounded LT Std"
       font_size = width/15
       font_color = options[:dark] ? "#FFFFFF" : "#000000"      
