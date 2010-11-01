@@ -9,8 +9,8 @@
     = auto_discovery_link_tag(:atom, "http://feeds.feedburner.com/#{@site.feedburner}")
     = yield :extra_meta
     = stylesheet_link_tag "scaffold", "application"
-    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-    = javascript_include_tag "rails", "application"
+    / %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+    = javascript_include_tag "jquery-1.4.2.min", "rails", "application"
     %script{:type => "text/javascript"}= yield(:javascript)
     %script{:type => "text/javascript", :src => "http://w.sharethis.com/button/buttons.js"}/
     %script{:type => "text/javascript"}
