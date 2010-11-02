@@ -61,7 +61,7 @@ class Design < ActiveRecord::Base
   end
   
   def regenerate_pngs
-    image = StringIO.new @design.render :height => 600, :width => 600
+    image = StringIO.new self.render :height => 600, :width => 600
     def image.original_filename;"design.svg"; end
     def image.content_type;"image/svg+xml"; end
     self.image = image
