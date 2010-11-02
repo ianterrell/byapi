@@ -18,19 +18,10 @@ module DesignViews
       while font_width.to_f < 0.999*width.to_f
         font_size += 5
         font_width, font_height, ascent, descent = Fonts.metrics_for string, :size => font_size
-        puts "font_size : #{font_size}"
-        # font_width, font_height = Fonts.metrics_for string, :size => font_size
-        puts "font width: #{font_width}"
-        puts "font height: #{font_height}"
       end
       font_size -= 5
-      puts "font_size : #{font_size}"
-      # font_width, font_height = Fonts.metrics_for string, :size => font_size
-      puts "font width: #{font_width}"
-      puts "font height: #{font_height}"
-      # TODO determine whether to go by length or height!  done!
-      original_font_size = font_size
       
+      original_font_size = font_size
       # font_height = font_height.to_f-descent.to_f
       
       flag_width_factor = 1235.to_f/font_width.to_f
