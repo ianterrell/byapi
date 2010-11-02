@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101101201701) do
+ActiveRecord::Schema.define(:version => 20101102034514) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20101101201701) do
     t.string   "preview_content_type"
     t.integer  "preview_file_size"
     t.datetime "preview_updated_at"
-    t.string   "offsets"
-    t.boolean  "has_dark",             :default => true
+    t.text     "offsets",              :limit => 255
+    t.boolean  "has_dark",                            :default => true
     t.string   "description"
   end
 
