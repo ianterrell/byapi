@@ -41,6 +41,10 @@ class Design < ActiveRecord::Base
     !approved?
   end
   
+  def pending?
+    !ignored? && !approved?
+  end
+  
   def approve!
     self.store = site.current_store
     self.approved_at = Time.now
