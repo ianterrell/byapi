@@ -1,8 +1,7 @@
 module DesignViews
   module Fonts
     def self.metrics_for(string, options={})
-      location = Rails.env.production? ? "/home/ian/.fonts" : "/Users/ian/Documents/Fonts/Helvetica/Helvetica"
-      result = `convert xc: -font #{location}/HelveticaRoundedLTStd-Bd.otf -pointsize #{options[:size] || 20} -debug annotate -annotate 0 #{string.inspect} null: 2>&1`
+      result = `convert xc: -font #{FONTS[:location]}/HelveticaRoundedLTStd-Bd.otf -pointsize #{options[:size] || 20} -debug annotate -annotate 0 #{string.inspect} null: 2>&1`
       # Will look something like this:
       # 2010-11-02T19:17:48+00:00 0:00.010 0.010u 6.6.5 Annotate convert[22496]: annotate.c/RenderFreetype/1155/Annotate
       #   Font ./.fonts/HelveticaRoundedLTStd-Bd.otf; font-encoding none; text-encoding none; pointsize 24
