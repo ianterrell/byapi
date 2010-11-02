@@ -60,6 +60,23 @@ class Design < ActiveRecord::Base
     self.update_attribute :ignored_at, Time.now
   end
   
+  def regenerate_pngs
+    image = StringIO.new @design.render :height => 600, :width => 600
+    def image.original_filename;"design.svg"; end
+    def image.content_type;"image/svg+xml"; end
+    self.image = image
+  end
+  
+  def remove_original_svg!
+    FileUtils.rm "#{Rails.root}/public/system/designs/images/#{id}/original.svg"
+  end
+  
+  def regenerate_pngs!
+    self.regenerate_pngs!
+    self.save!
+    self.remove_original_svg!
+  end
+  
   def render(options={})
     self.pattern.view.camelize.constantize.new.render(properties, options.merge(:offsets => offsets))
   end

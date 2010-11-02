@@ -21,16 +21,11 @@ class DesignsController < ApplicationController
   def create
     @design = @site.designs.build(params[:design])
 
-    if @design.valid?
-      image = StringIO.new @design.render :height => 600, :width => 600
-      def image.original_filename;"design.svg"; end
-      def image.content_type;"image/svg+xml"; end
-      @design.image = image
-    end
+    @design.regenerate_pngs if @design.valid?
 
     respond_to do |format|
       if @design.save
-        FileUtils.rm "#{Rails.root}/public/system/designs/images/#{@design.id}/original.svg"
+        @design.remove_original_svg!
         format.html { redirect_to(@design, :notice => 'Design was successfully created.') }
         format.xml  { render :xml => @design, :status => :created, :location => @design }
       else
