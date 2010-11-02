@@ -72,7 +72,7 @@ class Design < ActiveRecord::Base
   end
   
   def regenerate_pngs!
-    self.regenerate_pngs!
+    self.regenerate_pngs
     self.save!
     self.remove_original_svg!
   end
