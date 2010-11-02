@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102034514) do
+ActiveRecord::Schema.define(:version => 20101102215911) do
 
   create_table "cafepress_products", :force => true do |t|
     t.string   "cafepress_id"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20101102034514) do
     t.integer  "current_store_id"
     t.string   "analytics_code"
     t.string   "feedburner"
+    t.boolean  "private",             :default => true
   end
 
   add_index "sites", ["domain"], :name => "index_sites_on_domain"

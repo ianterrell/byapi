@@ -4,9 +4,9 @@
   You can find products featuring these designs here:
   = link_to "http://www.cafepress.com/#{@site.current_store.name}", "http://www.cafepress.com/#{@site.current_store.name}"
 
-- if @sites.count > 1
+- if @sites.reject{|x|x == @site || x.private?}.count > 0
   %p I also run a few more sites with this engine:
 
   %ul
-    - @sites.reject{|x|x == @site}.each do |site|
-      %li= link_to site.name, "http://www.#{site.domain}"
+    - @sites.reject{|x|x == @site || x.private?}.each do |site|
+      %li= link_to site.title, "http://www.#{site.domain}"

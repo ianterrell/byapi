@@ -15,10 +15,26 @@ class DesignsController < ApplicationController
   end
 
   def new
+    if @site.private?
+      permit('admin') { do_new }
+    else
+      do_new
+    end
+  end
+
+  def do_new
     @design = Design.new :category => @site.default_category
   end
 
   def create
+    if @site.private?
+      permit('admin') { do_create }
+    else
+      do_create
+    end
+  end
+
+  def do_create
     @design = @site.designs.build(params[:design])
 
     @design.regenerate_pngs if @design.valid?

@@ -40,5 +40,7 @@ module Byapi
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    config.permit_yo.require_user_redirection = { :controller => '/devise/sessions', :action => 'new' }
   end
 end
