@@ -6,7 +6,7 @@
     %meta{:name => "description", :content => @meta_description || "Computers and men join together to build visual things." }/
     %meta{:name => "generator", :content => "I made this website with me own two hands.  But do they call me the website maker?  No." }/
     %meta{:property => "og:site_name", :content => "#{@site.title}" }/
-    = auto_discovery_link_tag(:atom, "http://feeds.feedburner.com/#{@site.feedburner}")
+    = auto_discovery_link_tag(:atom, "http://feeds.feedburner.com/#{@site.feedburner}") unless @site.feedburner.blank?
     = yield :extra_meta
     = stylesheet_link_tag "scaffold", "application"
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
@@ -16,12 +16,12 @@
     %script{:type => "text/javascript"}
       stLight.options({publisher:'b29ef4c5-8fbd-4831-9723-1ec9aa5d17cd'});
     = csrf_meta_tag
-    = render :partial => "/layouts/analytics"
+    = render :partial => "/layouts/analytics" unless @site.analytics_code.blank?
   %body
     #header
       %h1
         = link_to @site.title, root_url
-        = link_to image_tag("feed.png"), "http://feeds.feedburner.com/#{@site.feedburner}", :class => "feed"
+        = link_to image_tag("feed.png"), "http://feeds.feedburner.com/#{@site.feedburner}", :class => "feed" unless @site.feedburner.blank?
       #menu
         = link_to_unless_current "Recent", root_path
         = link_to_unless_current "Best Selling", best_selling_designs_path
