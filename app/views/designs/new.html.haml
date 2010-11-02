@@ -50,7 +50,7 @@
             %th X
             %th Y
         %tbody#offsets
-          - if !new_design?
+          - if !new_design? && !@design.pattern.offsets.blank?
             - @design.pattern.offsets.each do |offset|
               %tr
                 %th= offset[:title]

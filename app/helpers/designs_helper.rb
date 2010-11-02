@@ -8,6 +8,7 @@ module DesignsHelper
   end
   
   def offsets_entered?
+    return false if @design.offsets.blank?
     @design.offsets.each_value do |coords|
       coords.each_value do |offset|
         return true if offset.to_i != 0
