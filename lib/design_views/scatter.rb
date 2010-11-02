@@ -34,22 +34,22 @@ module DesignViews
         svg.path :d => "M#{1.5*axes_offset} #{height-2*axes_offset} L#{1.5*axes_offset} #{height-axes_offset} L#{2*axes_offset} #{height-axes_offset}", :stroke => font_color, :"stroke-width" => arrow_size, :fill => "none"
         
         unless parameters[:low_low].blank?
-          svg.circle :cx => 2.5*axes_offset + offsets.x("low_low_point"), :cy => height-2*axes_offset + offsets.y("low_low_point"), :r => point_radius, :fill => "#000000", :"fill-opacity" => "1"
+          svg.circle :cx => 2.5*axes_offset + offsets.x("low_low_point"), :cy => height-2*axes_offset + offsets.y("low_low_point"), :r => point_radius, :fill => font_color, :"fill-opacity" => "1"
           svg.lines_of_text parameters[:low_low], font_options.merge(:x => 2*axes_offset + offsets.x("low_low_label"), :y => height-2*axes_offset-0.5*font_size + offsets.y("low_low_label"), :"text-anchor" => "start")
         end
         
         unless parameters[:low_high].blank?
-          svg.circle :cx => 2.5*axes_offset + offsets.x("low_high_point"), :cy => 2*axes_offset + offsets.y("low_high_point"), :r => point_radius, :fill => "#000000", :"fill-opacity" => "1"
+          svg.circle :cx => 2.5*axes_offset + offsets.x("low_high_point"), :cy => 2*axes_offset + offsets.y("low_high_point"), :r => point_radius, :fill => font_color, :"fill-opacity" => "1"
           svg.lines_of_text parameters[:low_high], font_options.merge(:x => 2*axes_offset + offsets.x("low_high_label"), :y => 2*axes_offset-0.5*font_size + offsets.y("low_high_label"), :"text-anchor" => "start")
         end
         
         unless parameters[:high_low].blank?
-          svg.circle :cx => width-1.5*axes_offset + offsets.x("high_low_point"), :cy => height-2*axes_offset + offsets.y("high_low_point"), :r => point_radius, :fill => "#000000", :"fill-opacity" => "1"
+          svg.circle :cx => width-1.5*axes_offset + offsets.x("high_low_point"), :cy => height-2*axes_offset + offsets.y("high_low_point"), :r => point_radius, :fill => font_color, :"fill-opacity" => "1"
           svg.lines_of_text parameters[:high_low], font_options.merge(:x => width-0.5*axes_offset + offsets.x("high_low_label"), :y => height-2*axes_offset-0.5*font_size + offsets.y("high_low_label"), :"text-anchor" => "end")
         end
         
         unless parameters[:high_high].blank?
-          svg.circle :cx => width-1.5*axes_offset + offsets.x("high_high_point"), :cy => 2*axes_offset + offsets.y("high_high_point"), :r => point_radius, :fill => "#000000", :"fill-opacity" => "1"
+          svg.circle :cx => width-1.5*axes_offset + offsets.x("high_high_point"), :cy => 2*axes_offset + offsets.y("high_high_point"), :r => point_radius, :fill => font_color, :"fill-opacity" => "1"
           svg.lines_of_text parameters[:high_high], font_options.merge(:x => width-0.5*axes_offset + offsets.x("high_high_label"), :y => 2*axes_offset-0.5*font_size + offsets.y("high_high_label"), :"text-anchor" => "end")
         end
 
