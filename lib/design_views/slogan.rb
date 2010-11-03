@@ -49,7 +49,7 @@ module DesignViews
         
         svg.lines_of_text string, :x => x, :y => y, "font-family" => font_family, "font-size" => "#{font_size}px", :fill => font_color, "alignment-baseline" => "central", "text-anchor" => alignment
         
-        svg.rect :x => 0, :y => 0, :height => 300, :width => 300, :fill => "none", :stroke => "#000"
+        # svg.rect :x => 0, :y => 0, :height => 300, :width => 300, :fill => "none", :stroke => "#000"
         # svg.preview if options[:preview]
       end
     end
