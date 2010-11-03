@@ -12,7 +12,7 @@ module DesignViews
       end
       
       def lines
-        self.split("|")
+        @lines ||= self.split("|")
       end
       
       def line_count
