@@ -9,6 +9,8 @@ gem 'friendly_id', '~> 3.0'
 
 gem 'acts-as-taggable-on'
 
+gem 'rqrcode'
+
 gem 'haml'
 gem 'rails3-generators', :group => :development
 

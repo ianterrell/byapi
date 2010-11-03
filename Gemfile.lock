@@ -94,6 +94,7 @@ GEM
       thor (~> 0.14.0)
     rake (0.8.7)
     responders (0.6.2)
+    rqrcode (0.3.2)
     rspec (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
@@ -134,6 +135,7 @@ DEPENDENCIES
   permit_yo (>= 2.1.2)
   rails (= 3.0.1)
   rails3-generators
+  rqrcode
   rspec-rails
   sqlite3-ruby
   will_paginate (= 3.0.pre2)
