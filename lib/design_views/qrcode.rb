@@ -10,6 +10,7 @@ module DesignViews
         begin
           code = RQRCode::QRCode.new parameters[:string], :size => size
         rescue
+          puts $!.class, $!.message
           size += 1
         end
       end
