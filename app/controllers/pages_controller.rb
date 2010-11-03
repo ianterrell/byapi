@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   end
   
   def feed
-    @designs = Design.approved.recent.limit(10)
+    @designs = @site.designs.approved.recent.limit(10)
   end
 end
