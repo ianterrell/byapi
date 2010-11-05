@@ -172,6 +172,17 @@ module Cafepress
       end
     end
     
+    def rename_and_describe_design_products(design)
+      xml = rename_products_xml(design)
+      response = post_form('product.saveAll.cp', default_options.merge("values" => xml))
+      if response.is_a? Net::HTTPOK
+        true
+      else
+        puts response.body
+        false
+      end
+    end
+    
     def looks_like_apparel?(name)
       [/shirt/i, /shorts/i, /jersey/i, /bodysuit/i, /tank/i, /raglan/i, /ringer/i, /hoodie/i, /tracksuit/i, /jacket/i, /brief/i, /thong/i].each do |regex|
         return true if name =~ regex
@@ -222,6 +233,18 @@ module Cafepress
           builder.product :name => product.name, :merchandiseId => product.cafepress_id, :storeId => design.store.name, :sectionId => design.cafepress_section_id, :sortPriority => [sort_priority -= 1,0].max, :sellPrice => product.price.to_f.round do
             builder.mediaConfiguration :name => product.default_region, :designId => cafepress_id_for(design, product)
           end
+        end
+      end
+      xml
+    end
+    
+    def rename_products_xml(design)
+      xml = ""
+      builder = Builder::XmlMarkup.new :target => xml
+      builder.products do
+        products_to_build = design.cafepress_products
+        products_to_build.each do |product|
+          builder.product :id => product.cafepress_id, :description => design.description, :name => design.title
         end
       end
       xml
